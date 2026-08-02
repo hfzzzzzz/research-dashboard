@@ -1,0 +1,41 @@
+{
+  "experiments": [
+    {
+      "id": "E1",
+      "name": "基线复现",
+      "status": "done",
+      "start": "2026-07-06",
+      "end": "2026-07-20",
+      "hypothesis": "基线应达到文献报告的指标区间",
+      "expected": "复现误差与文献差距 < 5%",
+      "actual": "GIN 0.336,与文献一致",
+      "next": "以 GIN 为基础模型"
+    },
+    {
+      "id": "E2",
+      "name": "虚拟全局节点",
+      "status": "running",
+      "start": "2026-07-29",
+      "end": "2026-08-08",
+      "hypothesis": "H1:全局节点弥补长程消息传递不足,MAE 降低 ≥ 8%",
+      "expected": "MAE ≤ 0.31",
+      "actual": "",
+      "next": "",
+      "priority": "high"
+    },
+    {
+      "id": "E3",
+      "name": "注意力式读出层",
+      "status": "planned",
+      "start": "2026-08-10",
+      "end": "2026-08-18",
+      "hypothesis": "注意力读出优于 sum/mean 池化",
+      "expected": "在 E2 之上再降 3~5%"
+    }
+  ],
+  "milestones": [
+    { "date": "2026-08-25", "label": "全部改进实验完成", "done": false },
+    { "date": "2026-09-15", "label": "论文初稿", "done": false }
+  ],
+  "notes": "GPU 资源:实验室 2×3090 常驻;A100 需按周申请。"
+}
