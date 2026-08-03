@@ -1373,6 +1373,13 @@ function render(){
     em.append(el('div','big','🚫'));
     em.append(el('div',null,`无法加载仓库 ${state.project}`));
     em.append(el('div','muted small', errText(c.errors.meta)));
+    const k=c.errors.meta.kind;
+    if(k==='notfound'||k==='auth'||k==='forbidden'||k==='ratelimit'){
+      const b=el('button','btn primary', config.token?'检查令牌设置':'填写访问令牌');
+      b.style.marginTop='16px';
+      b.addEventListener('click',()=>$('#btnSettings').click());
+      em.append(b);
+    }
     view.append(em); return;
   }
   ({overview:renderOverview, commits:renderCommits, results:renderResults,
