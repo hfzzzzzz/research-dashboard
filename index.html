@@ -276,6 +276,7 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 .exp-field.wide{grid-column:1/-1}
 .prio-high{color:var(--crit); font-size:11.5px; font-weight:700}
 .gantt-row-lbl{font-size:12.5px; display:flex; align-items:center; gap:7px; height:34px; overflow:hidden; white-space:nowrap}
+.gantt-row-lbl>span:last-child{overflow:hidden; text-overflow:ellipsis}
 .gantt-wrap{display:grid; grid-template-columns:190px 1fr; gap:0}
 @media (max-width:700px){ .gantt-wrap{grid-template-columns:120px 1fr} }
 .milestones{display:flex; flex-direction:column; gap:7px; margin-top:6px}
@@ -442,12 +443,16 @@ const COMMIT_TYPES={
   chore:   {label:'杂项',  icon:'🔧', color:'var(--muted)'},
   merge:   {label:'合并',  icon:'🔀', color:'var(--muted)'},
 };
+const TYPE_ALIASES={results:'result', doc:'docs', experiment:'exp', figure:'fig', figs:'fig'};
 function parseCommitType(msg){
-  if(/^merge\b/i.test(msg)) return {type:'merge', title:msg.split('\n')[0]};
-  const m=msg.match(/^(\w+)\s*[:：]\s*/);
-  if(m && COMMIT_TYPES[m[1].toLowerCase()])
-    return {type:m[1].toLowerCase(), title:msg.split('\n')[0].slice(m[0].length)};
-  return {type:null, title:msg.split('\n')[0]};
+  const first=msg.split('\n')[0];
+  if(/^merge\b/i.test(first)) return {type:'merge', title:first};
+  /* 支持 type: 与 type(scope): 两种格式;未知词表 → '#'+原词,渲染为中性徽章 */
+  const m=first.match(/^(\w+)(?:\(([^)]*)\))?\s*[:：]\s*(.*)$/);
+  if(!m) return {type:null, title:first};
+  const t=TYPE_ALIASES[m[1].toLowerCase()]||m[1].toLowerCase();
+  const title=(m[2]? '['+m[2]+'] ':'')+m[3];
+  return COMMIT_TYPES[t]? {type:t, title} : {type:'#'+t, title};
 }
 
 const STATUS_MAP={
@@ -971,10 +976,14 @@ function drawChart(host, spec, series){
     xPos=null;
     xOfIndex=i=> pad.l + bandW*i + bandW/2;
     const every=Math.ceil(cats.length/Math.max(2,Math.floor(iw/70)));
+    /* 可容纳字符数按实际带宽估算(每字约 6.5px),而非固定裁剪 */
+    const maxCh=Math.max(6, Math.floor(bandW*every/6.5));
     cats.forEach((c,ci)=>{
       if(ci%every!==0&&ci!==cats.length-1) return;
       const tx=svgEl('text',{x:xOfIndex(ci), y:H-pad.b+16, 'text-anchor':'middle', class:'ticklbl'});
-      tx.textContent=String(c).length>9?String(c).slice(0,8)+'…':String(c);
+      const s=String(c);
+      tx.textContent=s.length>maxCh? s.slice(0,maxCh-1)+'…' : s;
+      if(s.length>maxCh){ const t=svgEl('title'); t.textContent=s; tx.append(t); }
       svg.append(tx);
     });
   }
@@ -1275,8 +1284,40 @@ function renderGantt(host, experiments, milestones){
 
 /* ---------------- 视图渲染 ---------------- */
 const view=$('#view');
+/* 从 ?repos=owner/repo,owner/repo#branch 读取项目并落盘到本机 localStorage。
+   用于私有项目:清单只存在于链接与浏览器本地,不进入公开仓库。 */
+function adoptProjectsFromURL(){
+  let raw='';
+  try{ raw=new URLSearchParams(location.search).get('repos')||''; }catch(e){ return; }
+  if(!raw) return;
+  let changed=false;
+  raw.split(',').forEach(s=>{
+    const p=parseRepoLine(s.trim());
+    if(p && !config.projects.some(x=>pkey(x)===pkey(p))){ config.projects.push(p); changed=true; }
+  });
+  if(changed){ try{ localStorage.setItem(LS_CFG, JSON.stringify(config)); }catch(e){} }
+}
+
+let defaultProjects=null; /* 来自部署目录下的 projects.json(可选) */
+async function loadDefaults(){
+  if(defaultProjects!==null) return;
+  defaultProjects=[];
+  try{
+    const r=await fetch('projects.json',{cache:'no-store'});
+    if(r.ok){
+      const j=await r.json();
+      if(Array.isArray(j.projects))
+        defaultProjects=j.projects.filter(p=>p&&p.owner&&p.repo)
+          .map(p=>({owner:String(p.owner), repo:String(p.repo), branch:p.branch?String(p.branch):'', label:p.label?String(p.label):''}));
+    }
+  }catch(e){ /* file:// 或无此文件时静默降级 */ }
+}
 function currentProjects(){
-  const list=config.projects.slice();
+  const list=[], seen=new Set();
+  (defaultProjects||[]).concat(config.projects).forEach(p=>{
+    const k=pkey(p);
+    if(!seen.has(k)){ seen.add(k); list.push(p); }
+  });
   list.push({owner:'__demo__', repo:'', label:'示例项目(演示)'});
   return list;
 }
@@ -1304,6 +1345,8 @@ function statusChip(status){
   return c;
 }
 function typeChip(type){
+  if(!type) return null;
+  if(type[0]==='#') return el('span','chip', type.slice(1));
   const t=COMMIT_TYPES[type];
   if(!t) return null;
   const c=el('span','chip tone', t.icon+' '+t.label);
@@ -1318,7 +1361,7 @@ function render(){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===state.tab));
   const c=cacheOf();
   /* 顶部横幅 */
-  if(state.project===DEMO_KEY && !config.projects.length)
+  if(state.project===DEMO_KEY && currentProjects().length===1)
     setBanner('👋 当前为演示数据。点击右上角 ⚙ 设置,关联你 GitHub 账户下的科研项目仓库。');
   else if(c&&c.errors&&Object.values(c.errors).some(e=>e&&e.kind==='ratelimit'))
     setBanner('⚠ '+errText(Object.values(c.errors).find(e=>e.kind==='ratelimit')), true);
@@ -1340,7 +1383,7 @@ function render(){
 function renderOverview(){
   const projs=currentProjects();
   const wrap=el('div');
-  const isDemoOnly=!config.projects.length;
+  const isDemoOnly=projs.length===1;
   projs.forEach(p=>{
     const key=pkey(p);
     if(isDemoOnly&&key!==DEMO_KEY) return;
@@ -1412,10 +1455,11 @@ function renderCommits(){
   const search=el('input'); search.type='search'; search.placeholder='搜索提交信息…'; search.value=state.search;
   search.addEventListener('input',debounce(()=>{ state.search=search.value; drawList(); },200));
   fl.append(search);
-  const typesPresent=new Set();
-  c.commits.forEach(cm=>{ const t=parseCommitType(cm.commit.message).type; if(t) typesPresent.add(t); });
-  typesPresent.forEach(t=>{
-    const b=el('button','fchip'+(state.typeFilter.has(t)?' on':''), COMMIT_TYPES[t].icon+' '+COMMIT_TYPES[t].label);
+  const freq=new Map();
+  c.commits.forEach(cm=>{ const t=parseCommitType(cm.commit.message).type; if(t) freq.set(t,(freq.get(t)||0)+1); });
+  [...freq.keys()].sort((a,b)=>freq.get(b)-freq.get(a)).slice(0,10).forEach(t=>{
+    const known=COMMIT_TYPES[t];
+    const b=el('button','fchip'+(state.typeFilter.has(t)?' on':''), known? known.icon+' '+known.label : t.slice(1));
     b.addEventListener('click',()=>{
       if(state.typeFilter.has(t)) state.typeFilter.delete(t); else state.typeFilter.add(t);
       b.classList.toggle('on');
@@ -1455,7 +1499,8 @@ function renderCommits(){
         const row=el('div','commit');
         const rail=el('div','rail');
         const dot=el('div','dot');
-        if(pt.type) dot.style.background=COMMIT_TYPES[pt.type].color;
+        const kt=pt.type&&COMMIT_TYPES[pt.type];
+        if(kt) dot.style.background=kt.color;
         rail.append(dot, el('div','line'));
         row.append(rail);
         const body=el('div','body');
@@ -1821,7 +1866,7 @@ $('#btnClearAll').addEventListener('click',()=>{
   config={token:'', projects:[]};
   state.cache={};
   dlg.close();
-  state.project=DEMO_KEY;
+  state.project=null;
   init();
 });
 $('#btnLoadRepos').addEventListener('click',async ()=>{
@@ -1876,16 +1921,19 @@ $('#btnSave').addEventListener('click',()=>{
   catch(e){ errBox.textContent='无法保存到 localStorage'; errBox.hidden=false; return; }
   state.cache={};
   dlg.close();
-  state.project=projects.length?pkey(projects[0]):DEMO_KEY;
+  state.project=projects.length?pkey(projects[0]):null;
   init();
 });
 
 /* 初始化 */
 async function init(){
   buildTabs();
-  if(!state.project) state.project=config.projects.length?pkey(config.projects[0]):DEMO_KEY;
-  if(!currentProjects().some(p=>pkey(p)===state.project))
-    state.project=config.projects.length?pkey(config.projects[0]):DEMO_KEY;
+  adoptProjectsFromURL();
+  await loadDefaults();
+  if(!state.project || !currentProjects().some(p=>pkey(p)===state.project)){
+    const eff=currentProjects().filter(p=>pkey(p)!==DEMO_KEY);
+    state.project=eff.length?pkey(eff[0]):DEMO_KEY;
+  }
   buildProjectSelect();
   const h=location.hash.replace('#','');
   if(TABS.some(t=>t[0]===h)) state.tab=h;

@@ -14,6 +14,10 @@
 
 1. **打开** `index.html`(直接双击即可;数据全部通过 GitHub API 获取,本地打开也能正常工作)。首次打开显示内置演示项目,可先浏览全部功能。
 2. **关联你的仓库**:点击右上角 ⚙ 设置 → 填入 `owner/repo`(每行一个,可 `owner/repo#分支` 指定分支),或输入 GitHub 用户名一键加载仓库列表勾选。
+
+   也可以用 URL 参数一次带入,适合在多台设备间同步同一组项目:
+   `…/research-dashboard/?repos=owner/repo1,owner/repo2#results`
+   打开后项目会写入该设备的 localStorage,之后不带参数访问也在。**私有项目建议用这种方式**——清单只存在于你的链接和浏览器里,不会进入公开的 Pages 仓库。
 3. **私有仓库 / 提高限额**(可选):在 GitHub → Settings → Developer settings → Fine-grained tokens 创建只读令牌(仓库权限勾选 **Contents: Read-only**),填入设置。不填令牌时公开仓库可用,限每小时 60 次请求(每个项目一次完整加载约 5 次请求)。令牌仅保存在本机浏览器 localStorage。
 
 ## 让一个科研项目接入平台
@@ -31,7 +35,7 @@
 实验完成 → plan.json 更新状态与 actual;results.json 头部追加结果 → 提交 "result: 结论 + 关键数字"
 ```
 
-提交信息前缀(`exp:` `result:` `data:` `analysis:` `fig:` `paper:` `feat:` `fix:` `docs:` `chore:`)会在「更新记录」页渲染为类型徽章并支持筛选。
+提交信息前缀(`exp:` `result:` `data:` `analysis:` `fig:` `paper:` `feat:` `fix:` `docs:` `chore:`)会在「更新记录」页渲染为类型徽章并支持筛选。也支持 `type(scope):` 格式与项目自定义前缀(如 `stage2:` `sync:` `downstream:`),未知前缀会渲染为中性徽章并同样可筛选,不必为平台改动既有提交习惯。
 
 ## 发布到 GitHub Pages(可选)
 
@@ -46,9 +50,11 @@ git remote add origin https://github.com/<你的用户名>/research-dashboard.gi
 git push -u origin main
 ```
 
-仓库 Settings → Pages → Source 选 `main` 分支根目录,保存后访问 `https://<用户名>.github.io/research-dashboard/`。
+仓库 Settings → Pages → Source 选 **GitHub Actions**(本仓库带 [.github/workflows/pages.yml](.github/workflows/pages.yml),首次需在设置里选一次,之后每次 `git push` 自动部署),保存后访问 `https://<用户名>.github.io/research-dashboard/`。
 
-> 注意:GitHub Pages 页面本身是公开的(即使仓库私有,Pages 对免费账户公开)。令牌保存在浏览器本地、不会进入仓库,但若担心他人访问到你的面板页面,建议仅本地使用,或使用私有仓库 + 不启用 Pages。
+> 注意:GitHub Pages 页面本身是公开的(免费账户下,即使仓库私有,Pages 站点也公开)。令牌保存在浏览器本地、不会进入仓库,但若担心他人访问到你的面板页面,建议仅本地使用,或使用私有仓库 + 不启用 Pages。
+>
+> **不要把未发表项目的仓库名写进部署目录下的 `projects.json`**——那个文件会随 Pages 一起公开,等于在投稿前公开了选题。私有项目请用上面的 `?repos=` 链接或 ⚙ 设置,两者都只写入本机浏览器。`projects.json` 只适合公开项目。
 
 ## results.json / plan.json 字段规范
 
