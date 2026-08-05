@@ -1,75 +1,135 @@
-# 科研记录平台
+# Research Log
 
-单文件 HTML 仪表盘,通过 GitHub API 汇总展示科研项目仓库的研究进展——无需构建、无外部依赖,双击即可打开,也可部署为 GitHub Pages。
+A single-file HTML dashboard that pulls a research project's state straight from the GitHub
+API — no build step, no dependencies, no server. Open `index.html` locally or deploy it to
+GitHub Pages.
 
-| 页面 | 内容 | 数据来源 |
-|------|------|----------|
-| 概览 | 各项目卡片:提交活跃度、实验状态计数、最新结果 | 聚合下列各项 |
-| 更新记录 | 按日分组的提交时间线,类型徽章、搜索与筛选 | GitHub commits API |
-| 实验结果 | 指标块 + 折线/柱状/散点图(悬浮读数、数据表视图)+ 图片 | 仓库 `research/results.json` |
-| 研究方法 | CLAUDE.md 渲染为带目录的阅读版 | 仓库 `CLAUDE.md` |
-| 实验计划 | 状态统计、甘特时间线、里程碑、假设/预期/实际对照 | 仓库 `research/plan.json` |
+| Tab | What it shows | Source |
+| --- | --- | --- |
+| Overview | Per-project cards: commit activity, experiment status counts, latest result | everything below |
+| Commits | Commit timeline grouped by day, with type chips, search and filters | GitHub commits API |
+| Results | Metric tiles + line/bar/scatter charts (hover readouts, data-table view) + images | `research/results.json` |
+| Methods | CLAUDE.md rendered as a readable document with a table of contents | `CLAUDE.md` |
+| Plan | Status tiles, Gantt timeline, milestones, hypothesis/expected/actual cards | `research/plan.json` |
+| Manuscript | Title, abstract, section outline with word counts, figures, references, open TODOs | `research/manuscript.json` + the paper source |
 
-## 快速开始
+## Quick start
 
-1. **打开** `index.html`(直接双击即可;数据全部通过 GitHub API 获取,本地打开也能正常工作)。首次打开显示内置演示项目,可先浏览全部功能。
-2. **关联你的仓库**:点击右上角 ⚙ 设置 → 填入 `owner/repo`(每行一个,可 `owner/repo#分支` 指定分支),或输入 GitHub 用户名一键加载仓库列表勾选。
+1. **Open** `index.html` (double-click works — the GitHub API allows cross-origin requests, so
+   no local server is needed). It starts on a built-in demo project so every feature is visible.
+2. **Link your repositories**: press ⚙ and enter `owner/repo` per line (`owner/repo#branch` to
+   pin a branch), or type a GitHub username to pick from a list.
 
-   也可以用 URL 参数一次带入,适合在多台设备间同步同一组项目:
+   You can also pass them in the URL, which is handy across devices:
    `…/research-dashboard/?repos=owner/repo1,owner/repo2#results`
-   打开后项目会写入该设备的 localStorage,之后不带参数访问也在。**私有项目建议用这种方式**——清单只存在于你的链接和浏览器里,不会进入公开的 Pages 仓库。
-3. **私有仓库 / 提高限额**(可选):在 GitHub → Settings → Developer settings → Fine-grained tokens 创建只读令牌(仓库权限勾选 **Contents: Read-only**),填入设置。不填令牌时公开仓库可用,限每小时 60 次请求(每个项目一次完整加载约 5 次请求)。令牌仅保存在本机浏览器 localStorage。
+   The list is written to that device's localStorage, so later visits need no parameter.
+   **Prefer this for private projects** — the list lives only in your link and your browser,
+   never in the public Pages repository.
+3. **Private repositories / higher rate limit** (optional): create a read-only token under
+   GitHub → Settings → Developer settings → Fine-grained tokens (repository permission
+   **Contents: Read-only**) and paste it into ⚙. Without a token, public repositories work at
+   60 requests/hour; a full project load costs about 5. The token is stored only in your browser.
 
-## 让一个科研项目接入平台
+## Connecting a research project
 
-在科研项目仓库中添加三样东西:
+Add three things to the project repository:
 
-1. **`CLAUDE.md`**(仓库根目录)——复制 [templates/CLAUDE-template.md](templates/CLAUDE-template.md),替换占位符。它同时是 Claude Code 的项目工作说明与平台「研究方法」页的渲染源,一份文件两用。
-2. **`research/plan.json`** —— 实验安排、假设、预期结果、时间线。参考 [templates/plan.example.json](templates/plan.example.json)。
-3. **`research/results.json`** —— 实验结果(图表数据、指标、结论)。参考 [templates/results.example.json](templates/results.example.json)。图片放 `figures/` 目录,在结果的 `images` 字段引用。
+1. **`CLAUDE.md`** at the root — copy [templates/CLAUDE-template.md](templates/CLAUDE-template.md)
+   and fill it in. It doubles as the working brief for Claude Code and as the source for the
+   Methods tab.
+2. **`research/plan.json`** — experiments, hypotheses, expected results, timeline.
+   See [templates/plan.example.json](templates/plan.example.json).
+3. **`research/results.json`** — results with chart data, metrics and conclusions.
+   See [templates/results.example.json](templates/results.example.json). Images go in `figures/`
+   and are referenced from a result's `images` field.
 
-之后的日常流程(模板中的「实验与记录规范」已把这些约定写给 Claude Code,由它在每次实验后自动维护):
+Optionally add **`research/manuscript.json`**
+([template](templates/manuscript.example.json)) pointing at the paper source, and the
+Manuscript tab reads the LaTeX or Markdown live.
 
+The day-to-day loop — the template's "Logging conventions" section states these as a standing
+agreement for Claude Code, which then maintains the files after each experiment:
+
+```text
+experiment starts   → plan.json entry flips to running        → commit "exp: ..."
+experiment finishes → plan.json status + actual; results.json → commit "result: <conclusion + numbers>"
 ```
-实验开始 → plan.json 登记(planned→running)→ 提交 "exp: ..."
-实验完成 → plan.json 更新状态与 actual;results.json 头部追加结果 → 提交 "result: 结论 + 关键数字"
+
+Commit prefixes (`exp:` `result:` `data:` `analysis:` `fig:` `paper:` `feat:` `fix:` `docs:`
+`chore:`) render as type chips on the Commits tab. `type(scope):` and project-specific
+prefixes (`stage2:`, `sync:`, `downstream:`) also work — unknown prefixes get a neutral chip
+and remain filterable, so a project never has to change its existing commit habits for the
+dashboard.
+
+## The Manuscript tab
+
+`research/manuscript.json` describes the paper; everything else is derived from the source
+file at load time, so nothing has to be compiled or kept in sync by hand:
+
+```json
+{
+  "venue": "Pattern Recognition (Elsevier)",
+  "status": "drafting",
+  "target": "2026-08-31",
+  "source": "paper/main.tex",
+  "pdf": "paper/main.pdf",
+  "notes": "Framing decisions, known gaps, fallback plan"
+}
 ```
 
-提交信息前缀(`exp:` `result:` `data:` `analysis:` `fig:` `paper:` `feat:` `fix:` `docs:` `chore:`)会在「更新记录」页渲染为类型徽章并支持筛选。也支持 `type(scope):` 格式与项目自定义前缀(如 `stage2:` `sync:` `downstream:`),未知前缀会渲染为中性徽章并同样可筛选,不必为平台改动既有提交习惯。
+The page shows the title and authors, a countdown to `target`, an abstract, per-section word
+counts (parents roll up their subsections, so an unwritten stub reads as 0), figure and
+reference inventories, and **every unresolved `\todo{}`** — including empty markers, which are
+shown together with the sentence they interrupt. `.md` manuscripts work the same way using
+`TODO:`/`FIXME:` markers. One level of `\input{}`/`\include{}` is inlined. Drop `source`
+before drafting starts and the entry still tracks venue, status and deadline. Several papers:
+`{"manuscripts": [ … ]}`.
 
-## 发布到 GitHub Pages(可选)
+Word counts are approximate: LaTeX markup is stripped heuristically, so treat them as a
+progress signal rather than a submission-ready count.
 
-本地双击打开已完全可用;想要一个固定网址时:
+## Deploying to GitHub Pages (optional)
+
+Opening the file locally is already fully functional; deploy when you want a stable URL:
 
 ```bash
 cd research-dashboard
-git init -b main   # 若尚未初始化
-git add -A && git commit -m "feat: 科研记录平台"
-# 在 github.com 上新建仓库(建议私有:research-dashboard),然后:
-git remote add origin https://github.com/<你的用户名>/research-dashboard.git
+git init -b main   # if not already a repository
+git add -A && git commit -m "feat: research log"
+# create a repository on github.com, then:
+git remote add origin https://github.com/<user>/research-dashboard.git
 git push -u origin main
 ```
 
-仓库 Settings → Pages → Source 选 **GitHub Actions**(本仓库带 [.github/workflows/pages.yml](.github/workflows/pages.yml),首次需在设置里选一次,之后每次 `git push` 自动部署),保存后访问 `https://<用户名>.github.io/research-dashboard/`。
+In the repository, Settings → Pages → Source → **GitHub Actions**
+([.github/workflows/pages.yml](.github/workflows/pages.yml) is included; you select the source
+once and every later `git push` deploys automatically). The site appears at
+`https://<user>.github.io/research-dashboard/`.
 
-> 注意:GitHub Pages 页面本身是公开的(免费账户下,即使仓库私有,Pages 站点也公开)。令牌保存在浏览器本地、不会进入仓库,但若担心他人访问到你的面板页面,建议仅本地使用,或使用私有仓库 + 不启用 Pages。
+> A Pages site is public on free accounts even when its repository is private. The token never
+> leaves the browser, but if you would rather not expose the page itself, use it locally only.
 >
-> **不要把未发表项目的仓库名写进部署目录下的 `projects.json`**——那个文件会随 Pages 一起公开,等于在投稿前公开了选题。私有项目请用上面的 `?repos=` 链接或 ⚙ 设置,两者都只写入本机浏览器。`projects.json` 只适合公开项目。
+> **Do not put unpublished projects' repository names in a deployed `projects.json`** — that
+> file ships with the public site and would disclose what you are working on before submission.
+> Use the `?repos=` link or ⚙ instead; both stay in the browser. `projects.json` is for public
+> projects only.
 
-## results.json / plan.json 字段规范
+## Field reference
 
-完整规范见 [templates/CLAUDE-template.md](templates/CLAUDE-template.md) 的「research 数据文件说明」一节。要点:
+Full details are in the "research/ data files" section of
+[templates/CLAUDE-template.md](templates/CLAUDE-template.md). Key points:
 
-- `chart.type`:`line` / `bar` / `scatter`;`series[].data` 为 `[x, y]` 数组,x 可为数字或类目字符串
-- 散点图最多 3 个系列(色觉安全约束);`"diag": true` 加 y=x 参考线
-- `metrics[].delta` + `good`(`down`/`up`)控制增减着色;新结果放数组**头部**
-- 日期一律 `YYYY-MM-DD`
+- `chart.type`: `line` / `bar` / `scatter`; `series[].data` holds `[x, y]` pairs, x numeric or categorical
+- Scatter shows at most 3 series (a colour-vision-safety limit); `"diag": true` adds a y=x line
+- `metrics[].delta` plus `good` (`down`/`up`) drives the up/down colouring; new results go at the **front** of the array
+- Dates are always `YYYY-MM-DD`
 
-## 常见问题
+## Troubleshooting
 
-- **打开后一直「加载中」/ 报请求失败**:检查网络;`file://` 打开时 GitHub API 依然可用(接口允许跨域),无需本地服务器。
-- **提示请求次数用完(403)**:未填令牌时限每小时 60 次,填入令牌后为 5000 次/小时。
-- **私有仓库 404**:需要填入有该仓库 Contents 读取权限的 fine-grained token。
-- **CLAUDE.md 里的 HTML 不显示**:渲染器出于安全只支持 Markdown 语法,原始 HTML 会被转义为文本。
-- **图表不显示**:检查 `research/results.json` 是否为合法 JSON(页面会显示解析错误位置);`chart.series` 不能为空。
-- **修改了仓库数据但页面没变**:点右上角 ⟳ 刷新(页面会缓存本次会话的数据)。
+- **Stuck on "Loading…" or a request failure** — check connectivity; `file://` is fine, the API allows it.
+- **Rate limit (403)** — 60 requests/hour without a token, 5,000 with one.
+- **404 on a private repository** — the token needs Contents read access to that repository.
+- **Raw HTML in CLAUDE.md does not render** — the renderer supports Markdown only and escapes HTML.
+- **A chart is missing** — check that `research/results.json` is valid JSON (the page reports parse errors) and that `chart.series` is non-empty.
+- **The manuscript tab says the source failed to load** — check the `source` path in `manuscript.json`; it is relative to the repository root.
+- **Repository updated but the page has not changed** — press ⟳ (data is cached for the session).

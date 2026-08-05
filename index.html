@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>科研记录平台</title>
+<title>Research Log</title>
 <style>
-/* ============ 设计令牌(参考调色板,浅/深双模式) ============ */
+/* ============ Design tokens (reference palette, light/dark) ============ */
 :root{
   color-scheme: light;
   --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e;
@@ -44,7 +44,7 @@
 html{scroll-behavior:smooth}
 body{
   background:var(--page); color:var(--ink);
-  font:14px/1.65 system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+  font:14px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;
   min-height:100vh;
 }
 a{color:var(--accent); text-decoration:none}
@@ -53,7 +53,7 @@ button{font:inherit; color:inherit; cursor:pointer; background:none; border:none
 input,select,textarea{font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 10px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
 
-/* ============ 顶栏 ============ */
+/* ============ Top bar ============ */
 .topbar{
   position:sticky; top:0; z-index:50; background:var(--surface);
   border-bottom:1px solid var(--border);
@@ -79,12 +79,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinning{animation:spin 1s linear infinite}
 
-/* ============ 布局与卡片 ============ */
+/* ============ Layout & cards ============ */
 main{max-width:1160px; margin:0 auto; padding:20px}
 main.loading-dim{opacity:.45; pointer-events:none; transition:opacity .2s}
-.banner{
-  max-width:1160px; margin:14px auto 0; padding:0 20px;
-}
+.banner{max-width:1160px; margin:14px auto 0; padding:0 20px}
 .banner .inner{
   border:1px solid var(--border); background:var(--surface); border-radius:10px;
   padding:10px 14px; font-size:13px; color:var(--ink2); display:flex; gap:8px; align-items:baseline;
@@ -98,15 +96,11 @@ main.loading-dim{opacity:.45; pointer-events:none; transition:opacity .2s}
 .cardhead{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px}
 .cardhead .spacer{flex:1}
 .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-@media (max-width:860px){ .grid2,.grid3{grid-template-columns:1fr} }
+@media (max-width:860px){ .grid2{grid-template-columns:1fr} }
 .muted{color:var(--muted)} .ink2{color:var(--ink2)}
 .small{font-size:12.5px}
-.empty{
-  text-align:center; padding:44px 20px; color:var(--ink2); font-size:13.5px;
-}
+.empty{text-align:center; padding:44px 20px; color:var(--ink2); font-size:13.5px}
 .empty .big{font-size:30px; margin-bottom:10px}
-.empty code{font-size:12.5px}
 code,pre{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace}
 code{background:var(--chip-bg); border-radius:5px; padding:1.5px 5px; font-size:.92em}
 pre{
@@ -115,7 +109,7 @@ pre{
 }
 pre code{background:none; padding:0}
 
-/* ============ 徽章与状态 ============ */
+/* ============ Chips & status ============ */
 .chip{
   display:inline-flex; align-items:center; gap:4px; padding:2px 9px; border-radius:999px;
   font-size:11.5px; font-weight:600; background:var(--chip-bg); color:var(--ink2);
@@ -125,11 +119,11 @@ pre code{background:none; padding:0}
 .status-chip{display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; white-space:nowrap}
 .status-dot{width:8px; height:8px; border-radius:50%; flex:none}
 
-/* ============ 统计块(stat tile) ============ */
+/* ============ Stat tiles ============ */
 .tiles{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:16px}
 .tile{
   background:var(--surface); border:1px solid var(--border); border-radius:12px;
-  padding:13px 18px; min-width:130px; flex:1;
+  padding:13px 18px; min-width:120px; flex:1;
 }
 .tile .lbl{font-size:12px; color:var(--ink2); margin-bottom:2px}
 .tile .val{font-size:24px; font-weight:600; line-height:1.25}
@@ -143,7 +137,7 @@ pre code{background:none; padding:0}
 .metric .lbl{font-size:11.5px; color:var(--ink2)}
 .metric .val{font-size:18px; font-weight:600}
 
-/* ============ 提交时间线 ============ */
+/* ============ Commit timeline ============ */
 .filters{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:16px}
 .filters input[type=search]{width:220px}
 .fchip{
@@ -157,9 +151,7 @@ pre code{background:none; padding:0}
   display:flex; align-items:center; gap:10px;
 }
 .dayhead::after{content:""; flex:1; height:1px; background:var(--border2)}
-.commit{
-  display:flex; gap:12px; padding:9px 6px 9px 2px; border-radius:10px; position:relative;
-}
+.commit{display:flex; gap:12px; padding:9px 6px 9px 2px; border-radius:10px; position:relative}
 .commit:hover{background:var(--chip-bg)}
 .commit .rail{width:20px; flex:none; display:flex; flex-direction:column; align-items:center}
 .commit .dot{width:9px; height:9px; border-radius:50%; background:var(--axis); margin-top:7px; flex:none}
@@ -180,14 +172,14 @@ pre code{background:none; padding:0}
 .loadmore{display:block; margin:14px auto 0; padding:7px 22px; border:1px solid var(--border); border-radius:999px; color:var(--ink2); font-size:13px}
 .loadmore:hover{background:var(--chip-bg)}
 
-/* ============ 图表 ============ */
+/* ============ Charts ============ */
 .chartwrap{margin-top:8px}
 .legend{display:flex; gap:16px; flex-wrap:wrap; margin:2px 0 8px; font-size:12px; color:var(--ink2)}
 .legend .li{display:inline-flex; align-items:center; gap:6px}
 .lkey-line{width:18px; height:2.5px; border-radius:2px; flex:none}
 .lkey-rect{width:10px; height:10px; border-radius:3px; flex:none}
 svg.chart{display:block; width:100%; overflow:visible}
-svg.chart text{font:11px system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; fill:var(--muted)}
+svg.chart text{font:11px system-ui,-apple-system,"Segoe UI",sans-serif; fill:var(--muted)}
 svg.chart .ticklbl{font-variant-numeric:tabular-nums}
 svg.chart .axlbl{fill:var(--ink2); font-size:11.5px}
 svg.chart .dlabel{fill:var(--ink2); font-size:11px; font-weight:600}
@@ -197,7 +189,7 @@ svg.chart .xhair{stroke:var(--axis); stroke-width:1; visibility:hidden}
 svg.chart .bar{transition:filter .1s}
 svg.chart .bar.lift, svg.chart .bar:hover{filter:brightness(1.12)}
 svg.chart .hit{fill:transparent; stroke:none; outline:none}
-svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dasharray:none}
+svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2}
 .tbl-toggle{font-size:12px; color:var(--accent); padding:2px 8px; border-radius:6px}
 .tbl-toggle:hover{background:var(--chip-bg)}
 .datatable{width:100%; border-collapse:collapse; margin-top:10px; font-size:12.5px}
@@ -205,7 +197,6 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 .datatable th:first-child,.datatable td:first-child{text-align:left}
 .datatable th{background:var(--chip-bg); color:var(--ink2); font-weight:600}
 
-/* 悬浮提示 */
 #tip{
   position:fixed; z-index:99; pointer-events:none; visibility:hidden;
   background:var(--surface); border:1px solid var(--border); border-radius:9px;
@@ -217,7 +208,7 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 #tip .t-val{font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums}
 #tip .t-name{color:var(--ink2)}
 
-/* ============ 结果卡片 ============ */
+/* ============ Results ============ */
 .result-summary{
   border-left:3px solid var(--accent); background:var(--chip-bg);
   padding:9px 13px; border-radius:0 9px 9px 0; font-size:13.5px; margin:8px 0 4px;
@@ -228,7 +219,7 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 .result-imgs img{max-width:100%; border-radius:9px; border:1px solid var(--border)}
 .result-imgs figcaption{font-size:11.5px; color:var(--muted); margin-top:4px}
 
-/* ============ Markdown 渲染(研究方法) ============ */
+/* ============ Markdown (Methods) ============ */
 .methods-layout{display:grid; grid-template-columns:210px 1fr; gap:26px; align-items:start}
 @media (max-width:860px){ .methods-layout{grid-template-columns:1fr} .toc{display:none} }
 .toc{position:sticky; top:70px; font-size:12.5px; max-height:calc(100vh - 90px); overflow-y:auto}
@@ -238,10 +229,7 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 .toc a.l3{padding-left:21px; font-size:12px; color:var(--muted)}
 .md{max-width:760px}
 .md h1{font-size:24px; margin:4px 0 14px; line-height:1.35}
-.md h2{
-  font-size:17.5px; margin:30px 0 10px; padding-bottom:7px;
-  border-bottom:1px solid var(--border2); scroll-margin-top:70px;
-}
+.md h2{font-size:17.5px; margin:30px 0 10px; padding-bottom:7px; border-bottom:1px solid var(--border2); scroll-margin-top:70px}
 .md h3{font-size:15px; margin:20px 0 7px; scroll-margin-top:70px}
 .md h4{font-size:13.5px; margin:15px 0 5px; color:var(--ink2)}
 .md p{margin:8px 0}
@@ -263,7 +251,7 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 .md img{max-width:100%; border-radius:9px}
 .md .lede{font-size:15px; color:var(--ink2)}
 
-/* ============ 计划视图 ============ */
+/* ============ Plan ============ */
 .exp-card{border:1px solid var(--border); border-radius:12px; padding:14px 17px; margin-bottom:12px; background:var(--surface)}
 .exp-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
 .exp-head .name{font-weight:650; font-size:14.5px}
@@ -281,22 +269,38 @@ svg.chart .hit:focus-visible{stroke:var(--accent); stroke-width:2; stroke-dashar
 @media (max-width:700px){ .gantt-wrap{grid-template-columns:120px 1fr} }
 .milestones{display:flex; flex-direction:column; gap:7px; margin-top:6px}
 .ms{display:flex; gap:10px; align-items:baseline; font-size:13px}
-.ms .msdate{font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px; width:88px; flex:none}
+.ms .msdate{font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px; width:96px; flex:none}
 .ms.done{color:var(--muted); text-decoration:line-through}
 .ms .msmark{flex:none; width:9px; height:9px; transform:rotate(45deg); background:var(--s7); border-radius:2px}
 .ms.done .msmark{background:var(--good)}
 
-/* ============ 概览 ============ */
-.proj-card{cursor:pointer; transition:border-color .12s}
-.proj-card:hover{border-color:var(--axis)}
-.proj-title{font-size:15.5px; font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
-.proj-desc{color:var(--ink2); font-size:13px; margin:3px 0 10px}
-.proj-stats{display:flex; gap:18px; flex-wrap:wrap; font-size:12.5px; color:var(--ink2); align-items:center}
-.proj-stats b{font-size:15px; color:var(--ink)}
-.latest-line{margin-top:10px; padding-top:10px; border-top:1px solid var(--border2); font-size:12.5px; color:var(--ink2)}
-.latest-line .lb{color:var(--muted); font-weight:600; font-size:11.5px}
+/* ============ Manuscript ============ */
+.ms-title{font-size:19px; font-weight:700; line-height:1.4}
+.ms-authors{color:var(--ink2); font-size:13px; margin-top:5px}
+.ms-meta{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; align-items:center}
+.countdown{font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums}
+.countdown.near{color:var(--serious)}
+.countdown.over{color:var(--crit)}
+.ms-links{margin-top:12px; display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px}
+.abstract{font-size:14px; line-height:1.78; color:var(--ink2)}
+.outline-row{display:grid; grid-template-columns:1fr 62px; gap:12px; align-items:baseline; padding:4px 0; font-size:13.5px}
+.outline-row.lv2{padding-left:20px; font-size:12.8px; color:var(--ink2)}
+.outline-name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.outline-words{text-align:right; font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px}
+.outline-bar{grid-column:1/-1; height:4px; border-radius:2px; background:var(--chip-bg); margin-top:1px}
+.outline-bar>span{display:block; height:100%; background:var(--s1); border-radius:2px}
+.outline-row.lv2+.outline-bar>span{background:var(--s1); opacity:.55}
+.todo-item{
+  display:flex; flex-direction:column; gap:2px; padding:9px 13px; margin:8px 0;
+  border-left:3px solid var(--warn); background:var(--chip-bg); border-radius:0 8px 8px 0; font-size:13px;
+}
+.todo-item .ctx{color:var(--ink2); font-style:italic}
+.todo-sec{color:var(--muted); font-size:11.5px; font-weight:600}
+.fig-list{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; margin-top:6px}
+.fig-item{border:1px solid var(--border2); border-radius:9px; padding:9px 12px; font-size:12.5px; color:var(--ink2)}
+.fig-item b{display:block; color:var(--ink); font-family:ui-monospace,Consolas,monospace; font-size:12px; font-weight:600; word-break:break-all}
 
-/* ============ 设置对话框 ============ */
+/* ============ Settings dialog ============ */
 dialog{
   border:1px solid var(--border); border-radius:14px; background:var(--surface); color:var(--ink);
   padding:0; max-width:560px; width:calc(100vw - 40px);
@@ -323,56 +327,57 @@ footer{max-width:1160px; margin:10px auto 30px; padding:0 20px; color:var(--mute
 <body>
 
 <header class="topbar">
-  <div class="brand"><span class="logo">🔬</span>科研记录</div>
-  <select id="projectSelect" title="选择项目"></select>
+  <div class="brand"><span class="logo">🔬</span>Research Log</div>
+  <select id="projectSelect" title="Select project"></select>
   <nav class="tabs" id="tabs"></nav>
-  <button class="iconbtn" id="btnRefresh" title="刷新数据">⟳</button>
-  <button class="iconbtn" id="btnTheme" title="切换主题">🌙</button>
-  <button class="iconbtn" id="btnSettings" title="设置">⚙</button>
+  <button class="iconbtn" id="btnRefresh" title="Refresh data">⟳</button>
+  <button class="iconbtn" id="btnTheme" title="Toggle theme">🌙</button>
+  <button class="iconbtn" id="btnSettings" title="Settings">⚙</button>
 </header>
 
 <div class="banner" id="banner" hidden><div class="inner" id="bannerInner"></div></div>
 
 <main id="view"></main>
 
-<footer>科研记录平台 · 数据来自 GitHub API · 令牌与配置仅保存在本机浏览器 localStorage</footer>
+<footer>Research Log · data read live from the GitHub API · token and settings stay in this browser's localStorage</footer>
 
 <div id="tip"></div>
 
 <dialog id="settingsDlg">
-  <div class="dlg-head">设置</div>
+  <div class="dlg-head">Settings</div>
   <div class="dlg-body">
-    <label for="setToken">GitHub 访问令牌(可选)</label>
-    <input type="password" id="setToken" placeholder="ghp_... 或 github_pat_..." autocomplete="off">
-    <div class="hint">公开仓库可不填(限每小时 60 次请求)。访问私有仓库或提高限额,请在
-      GitHub → Settings → Developer settings → Fine-grained tokens 创建只读令牌(仓库权限勾选 Contents: Read)。令牌仅保存在本机浏览器。</div>
+    <label for="setToken">GitHub access token (optional)</label>
+    <input type="password" id="setToken" placeholder="ghp_... or github_pat_..." autocomplete="off">
+    <div class="hint">Public repositories work without a token, capped at 60 requests/hour. For private
+      repositories or a higher cap, create a read-only token under GitHub → Settings → Developer settings →
+      Fine-grained tokens (repository permission <b>Contents: Read-only</b>). The token is stored only in this browser.</div>
 
-    <label for="setRepos">关联的科研项目仓库</label>
-    <textarea id="setRepos" placeholder="每行一个,格式: owner/repo 或 owner/repo#分支&#10;例如: f34huang/gnn-molprop"></textarea>
+    <label for="setRepos">Linked project repositories</label>
+    <textarea id="setRepos" placeholder="One per line: owner/repo  or  owner/repo#branch&#10;e.g. hfzzzzzz/sa3c-fpn"></textarea>
 
-    <label for="setUser">或从 GitHub 账户加载仓库列表</label>
+    <label for="setUser">Or load repositories from a GitHub account</label>
     <div style="display:flex; gap:8px">
-      <input type="text" id="setUser" placeholder="GitHub 用户名" style="flex:1">
-      <button class="btn" id="btnLoadRepos">加载</button>
+      <input type="text" id="setUser" placeholder="GitHub username" style="flex:1">
+      <button class="btn" id="btnLoadRepos">Load</button>
     </div>
     <div class="repolist" id="repoList"></div>
     <div class="err-inline" id="setErr" hidden></div>
   </div>
   <div class="dlg-foot">
-    <button class="btn" id="btnClearAll" style="margin-right:auto">清除全部配置</button>
-    <button class="btn" id="btnCancel">取消</button>
-    <button class="btn primary" id="btnSave">保存</button>
+    <button class="btn" id="btnClearAll" style="margin-right:auto">Clear all settings</button>
+    <button class="btn" id="btnCancel">Cancel</button>
+    <button class="btn primary" id="btnSave">Save</button>
   </div>
 </dialog>
 
 <script>
 'use strict';
 /* =================================================================
- * 科研记录平台 — 单文件仪表盘
- * 数据源: GitHub API(commits / CLAUDE.md / research/results.json / research/plan.json)
+ * Research Log — single-file dashboard
+ * Data: GitHub API (commits / CLAUDE.md / research/{results,plan,manuscript}.json)
  * ================================================================= */
 
-/* ---------------- 工具 ---------------- */
+/* ---------------- Utilities ---------------- */
 const $=s=>document.querySelector(s);
 function el(tag, cls, text){
   const n=document.createElement(tag);
@@ -380,74 +385,75 @@ function el(tag, cls, text){
   if(text!=null) n.textContent=text;
   return n;
 }
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function fmtNum(v){
   if(v==null||isNaN(v)) return '—';
   const a=Math.abs(v);
-  if(a>=10000) return v.toLocaleString('zh-CN',{maximumFractionDigits:0});
-  if(a>=1000) return v.toLocaleString('zh-CN',{maximumFractionDigits:1});
+  if(a>=10000) return v.toLocaleString('en-US',{maximumFractionDigits:0});
+  if(a>=1000) return v.toLocaleString('en-US',{maximumFractionDigits:1});
   if(Number.isInteger(v)) return String(v);
   if(a>=1) return v.toFixed(Math.abs(v)>=100?1:2).replace(/\.?0+$/,'');
   return v.toPrecision(3).replace(/\.?0+$/,'');
 }
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WEEKDAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 function parseDate(s){ if(!s) return null; const d=new Date(/^\d{4}-\d{2}-\d{2}$/.test(s)? s+'T00:00:00' : s); return isNaN(d)?null:d; }
 function fmtDate(d, withYear){
   if(typeof d==='string') d=parseDate(d);
   if(!d) return '—';
   const y=d.getFullYear(), now=new Date();
-  const base=`${d.getMonth()+1}月${d.getDate()}日`;
-  return (withYear||y!==now.getFullYear())? `${y}年${base}` : base;
+  const base=`${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  return (withYear||y!==now.getFullYear())? `${base}, ${y}` : base;
 }
 function isoDay(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function relTime(iso){
   const d=parseDate(iso); if(!d) return '';
   const s=(Date.now()-d.getTime())/1000;
-  if(s<60) return '刚刚';
-  if(s<3600) return Math.floor(s/60)+' 分钟前';
-  if(s<86400) return Math.floor(s/3600)+' 小时前';
-  if(s<86400*30) return Math.floor(s/86400)+' 天前';
+  if(s<60) return 'just now';
+  if(s<3600){ const n=Math.floor(s/60); return n+(n===1?' minute ago':' minutes ago'); }
+  if(s<86400){ const n=Math.floor(s/3600); return n+(n===1?' hour ago':' hours ago'); }
+  if(s<86400*30){ const n=Math.floor(s/86400); return n+(n===1?' day ago':' days ago'); }
   return fmtDate(d,true);
 }
 function dayLabel(dateStr){
   const d=parseDate(dateStr), today=new Date();
-  const t0=isoDay(today);
   const y=new Date(today); y.setDate(y.getDate()-1);
-  if(dateStr===t0) return '今天';
-  if(dateStr===isoDay(y)) return '昨天';
-  const wd='日一二三四五六'[d.getDay()];
-  return `${fmtDate(d)} 周${wd}`;
+  if(dateStr===isoDay(today)) return 'Today';
+  if(dateStr===isoDay(y)) return 'Yesterday';
+  return `${WEEKDAYS[d.getDay()]}, ${fmtDate(d)}`;
 }
+function daysBetween(a,b){ return Math.round((b-a)/86400000); }
 function debounce(fn,ms){ let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms)}; }
 
-/* ---------------- 配置与状态 ---------------- */
+/* ---------------- Config & state ---------------- */
 const LS_CFG='rd.config.v1', LS_THEME='rd.theme';
 const DEMO_KEY='__demo__';
 let config={token:'', projects:[]};
 try{ const raw=localStorage.getItem(LS_CFG); if(raw) config=Object.assign(config, JSON.parse(raw)); }catch(e){}
 const state={ project:null, tab:'overview', cache:{}, typeFilter:new Set(), search:'', chartRegistry:[] };
 
-const TABS=[ ['overview','概览'], ['commits','更新记录'], ['results','实验结果'], ['methods','研究方法'], ['plan','实验计划'] ];
+const TABS=[ ['overview','Overview'], ['commits','Commits'], ['results','Results'],
+             ['methods','Methods'], ['plan','Plan'], ['manuscript','Manuscript'] ];
 
-/* 提交类型规范 */
+/* Commit type vocabulary */
 const COMMIT_TYPES={
-  exp:     {label:'实验',  icon:'🧪', color:'var(--s1)'},
-  result:  {label:'结果',  icon:'📊', color:'var(--s3)'},
-  data:    {label:'数据',  icon:'🗃️', color:'var(--s4)'},
-  analysis:{label:'分析',  icon:'🔍', color:'var(--s7)'},
-  fig:     {label:'图表',  icon:'🖼️', color:'var(--s5)'},
-  paper:   {label:'写作',  icon:'📝', color:'var(--s2)'},
-  feat:    {label:'功能',  icon:'✨', color:'var(--s1)'},
-  fix:     {label:'修复',  icon:'🐞', color:'var(--s8)'},
-  docs:    {label:'文档',  icon:'📄', color:'var(--muted)'},
-  refactor:{label:'重构',  icon:'♻️', color:'var(--muted)'},
-  chore:   {label:'杂项',  icon:'🔧', color:'var(--muted)'},
-  merge:   {label:'合并',  icon:'🔀', color:'var(--muted)'},
+  exp:     {label:'Experiment', icon:'🧪', color:'var(--s1)'},
+  result:  {label:'Result',     icon:'📊', color:'var(--s3)'},
+  data:    {label:'Data',       icon:'🗃️', color:'var(--s4)'},
+  analysis:{label:'Analysis',   icon:'🔍', color:'var(--s7)'},
+  fig:     {label:'Figure',     icon:'🖼️', color:'var(--s5)'},
+  paper:   {label:'Writing',    icon:'📝', color:'var(--s2)'},
+  feat:    {label:'Feature',    icon:'✨', color:'var(--s1)'},
+  fix:     {label:'Fix',        icon:'🐞', color:'var(--s8)'},
+  docs:    {label:'Docs',       icon:'📄', color:'var(--muted)'},
+  refactor:{label:'Refactor',   icon:'♻️', color:'var(--muted)'},
+  chore:   {label:'Chore',      icon:'🔧', color:'var(--muted)'},
+  merge:   {label:'Merge',      icon:'🔀', color:'var(--muted)'},
 };
 const TYPE_ALIASES={results:'result', doc:'docs', experiment:'exp', figure:'fig', figs:'fig'};
 function parseCommitType(msg){
   const first=msg.split('\n')[0];
   if(/^merge\b/i.test(first)) return {type:'merge', title:first};
-  /* 支持 type: 与 type(scope): 两种格式;未知词表 → '#'+原词,渲染为中性徽章 */
+  /* Accepts "type:" and "type(scope):"; unknown words become '#word' → neutral chip */
   const m=first.match(/^(\w+)(?:\(([^)]*)\))?\s*[:：]\s*(.*)$/);
   if(!m) return {type:null, title:first};
   const t=TYPE_ALIASES[m[1].toLowerCase()]||m[1].toLowerCase();
@@ -456,10 +462,20 @@ function parseCommitType(msg){
 }
 
 const STATUS_MAP={
-  planned:{label:'计划中', icon:'○', color:'var(--muted)'},
-  running:{label:'进行中', icon:'▶', color:'var(--s1)'},
-  done:   {label:'已完成', icon:'✓', color:'var(--good)'},
-  blocked:{label:'受阻',   icon:'⚠', color:'var(--crit)'},
+  planned:{label:'Planned', icon:'○', color:'var(--muted)'},
+  running:{label:'Running', icon:'▶', color:'var(--s1)'},
+  done:   {label:'Done',    icon:'✓', color:'var(--good)'},
+  blocked:{label:'Blocked', icon:'⚠', color:'var(--crit)'},
+};
+const MS_STATUS={
+  planned:        {label:'Planned',        color:'var(--muted)'},
+  drafting:       {label:'Drafting',       color:'var(--s1)'},
+  'internal-review':{label:'Internal review', color:'var(--s7)'},
+  submitted:      {label:'Submitted',      color:'var(--s3)'},
+  'under-review': {label:'Under review',   color:'var(--s4)'},
+  revision:       {label:'In revision',    color:'var(--s2)'},
+  accepted:       {label:'Accepted',       color:'var(--good)'},
+  rejected:       {label:'Rejected',       color:'var(--crit)'},
 };
 
 /* ---------------- GitHub API ---------------- */
@@ -485,12 +501,13 @@ async function gh(path, opt){
 }
 function errText(e){
   switch(e&&e.kind){
-    case 'notfound': return '未找到(404)——仓库不存在,或是私有仓库需要在设置中填写令牌';
-    case 'auth': return '令牌无效或已过期(401)';
-    case 'ratelimit': return `GitHub API 请求次数已用完,${e.reset?('将于 '+new Date(e.reset).toLocaleTimeString('zh-CN')+' 重置,'):''}可在设置中填写令牌提高限额`;
-    case 'forbidden': return '无权限访问(403)';
-    case 'network': return '网络请求失败,请检查网络连接';
-    default: return '请求失败'+(e&&e.status?(' (HTTP '+e.status+')'):'');
+    case 'notfound': return 'Not found (404) — the repository does not exist, or it is private and needs a token in Settings';
+    case 'auth': return 'Token is invalid or expired (401)';
+    case 'ratelimit': return `GitHub API rate limit reached${e.reset?(', resets at '+new Date(e.reset).toLocaleTimeString('en-US')):''} — add a token in Settings to raise the limit`;
+    case 'forbidden': return 'Access forbidden (403)';
+    case 'network': return 'Network request failed — check your connection';
+    case 'parse': return 'Invalid JSON';
+    default: return 'Request failed'+(e&&e.status?(' (HTTP '+e.status+')'):'');
   }
 }
 
@@ -501,6 +518,8 @@ function parseRepoLine(line){
   if(!m) return null;
   return {owner:m[1], repo:m[2], branch:m[3]||''};
 }
+function encPath(p){ return String(p).replace(/^\.?\//,'').split('/').map(encodeURIComponent).join('/'); }
+function dirOf(p){ const i=String(p).lastIndexOf('/'); return i<0?'':String(p).slice(0,i+1); }
 
 async function loadProject(p, force){
   const key=pkey(p);
@@ -520,10 +539,42 @@ async function loadProject(p, force){
     gh(`/repos/${key}/contents/research/plan.json?ref=${ref}`,{raw:true}).then(t=>{
       try{ c.plan=JSON.parse(t); }catch(pe){ c.errors.plan=ghErr('parse'); c.parseMsgPlan=pe.message; }
     }).catch(e=>{ if(e.kind!=='notfound') c.errors.plan=e; }),
+    gh(`/repos/${key}/contents/research/manuscript.json?ref=${ref}`,{raw:true}).then(async t=>{
+      let m;
+      try{ m=JSON.parse(t); }catch(pe){ c.errors.manuscript=ghErr('parse'); c.parseMsgMs=pe.message; return; }
+      const list=Array.isArray(m.manuscripts)? m.manuscripts : (Array.isArray(m)? m : [m]);
+      c.manuscript=list;
+      await Promise.all(list.map(ms=>loadManuscriptSource(ms, key, c.branch)));
+    }).catch(e=>{ if(e.kind!=='notfound') c.errors.manuscript=e; }),
   ];
   await Promise.all(jobs);
   c.loaded=true;
   return c;
+}
+/* Fetch the manuscript source, inline one level of \input/\include, then parse */
+async function loadManuscriptSource(ms, key, branch){
+  if(!ms||!ms.source) return;
+  const ref=encodeURIComponent(branch);
+  try{
+    let src=await gh(`/repos/${key}/contents/${encPath(ms.source)}?ref=${ref}`,{raw:true});
+    if(/\.tex$/i.test(ms.source)){
+      const base=dirOf(ms.source);
+      const inc=[...src.matchAll(/\\(?:input|include)\s*\{([^}]+)\}/g)].map(m=>m[1].trim()).slice(0,12);
+      if(inc.length){
+        const parts=await Promise.all(inc.map(async name=>{
+          const path=base+(/\.\w+$/.test(name)? name : name+'.tex');
+          try{ return {name, text:await gh(`/repos/${key}/contents/${encPath(path)}?ref=${ref}`,{raw:true})}; }
+          catch(e){ return null; }
+        }));
+        parts.filter(Boolean).forEach(pt=>{
+          src=src.replace(new RegExp('\\\\(?:input|include)\\s*\\{'+pt.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\}'), ()=>pt.text);
+        });
+      }
+      ms._parsed=parseTex(src);
+    }else{
+      ms._parsed=parseMdManuscript(src);
+    }
+  }catch(e){ ms._err=e; }
 }
 async function loadMoreCommits(p){
   const c=state.cache[pkey(p)]; if(!c||c.commitsDone) return;
@@ -534,155 +585,162 @@ async function loadMoreCommits(p){
     if(more.length<60) c.commitsDone=true;
   }catch(e){ c.commitsDone=true; }
 }
-/* 仓库内图片 → blob URL(公有/私有仓库均可) */
+/* Repo images → blob URL (works for private repos too) */
 const imgCache={};
 async function repoImageURL(key, branch, path){
   const ck=key+'@'+branch+':'+path;
   if(imgCache[ck]) return imgCache[ck];
-  const blob=await gh(`/repos/${key}/contents/${path.split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(branch)}`,{raw:true, blob:true});
+  const blob=await gh(`/repos/${key}/contents/${encPath(path)}?ref=${encodeURIComponent(branch)}`,{raw:true, blob:true});
   imgCache[ck]=URL.createObjectURL(blob);
   return imgCache[ck];
 }
 
-/* ---------------- 演示数据 ---------------- */
-function demoBundle(){
-  const md=[
-'# 分子性质预测(GNN)',
-'',
-'> 用图神经网络在 QM9 数据集上预测分子偶极矩,目标是在参数量 ≤ 2M 的前提下将测试 MAE 降到 0.30 D 以下。',
-'',
-'## 项目概述',
-'- **研究领域**:图机器学习 / 计算化学',
-'- **当前阶段**:模型改进(第 2 阶段,共 3 阶段)',
-'- **时间范围**:2026-07 至 2026-10',
-'',
-'## 研究问题与假设',
-'- **RQ1**:消息传递轮数与分子尺寸的关系是否影响长程相互作用的建模?',
-'  - **H1**:加入虚拟全局节点可弥补长程信息传递不足,MAE 至少降低 8%。',
-'- **RQ2**:数据增强(随机旋转、键扰动)对小样本场景的收益有多大?',
-'',
-'## 研究方法',
-'### 总体思路',
-'以 GIN 为基线,逐项引入改进(全局节点、边特征、数据增强),每次只改一个变量,用相同的数据划分与随机种子对比。',
-'',
-'### 实验设计',
-'1. 固定划分:训练 110k / 验证 10k / 测试 13k,种子 42',
-'2. 每组实验跑 3 个种子,报告均值 ± 标准差',
-'3. 早停:验证集 MAE 连续 20 轮不下降',
-'',
-'### 数据',
-'- QM9(134k 分子),目标属性:偶极矩 μ(单位 Debye)',
-'- 预处理脚本:`scripts/prepare_qm9.py`,缓存于 `data/processed/`',
-'',
-'### 分析与评估',
-'- 主指标:测试集 MAE;辅助:R²、按分子大小分桶的误差',
-'- 显著性:配对 t 检验,p < 0.05',
-'',
-'## 环境与复现',
-'```bash',
-'conda env create -f environment.yml',
-'python train.py --config configs/gin_base.yaml --seed 42',
-'```',
-'',
-'## 实验与记录规范',
-'> 本节为 Claude Code 的工作约定,人工提交也请遵守。',
-'',
-'1. 提交信息格式:`<type>: <说明>`,type ∈ exp / result / data / analysis / fig / paper / feat / fix / docs / chore',
-'2. 每完成一个实验:更新 `research/plan.json` 的状态与 actual 字段',
-'3. 每个可展示的结果写入 `research/results.json`(附 chart 数据或 figures 图片)',
-'4. 图表文件保存到 `figures/`,命名 `<实验ID>_<描述>.png`',
-'5. 日期一律 `YYYY-MM-DD`',
-'',
-'## 时间规划',
-'| 阶段 | 时间 | 目标 | 状态 |',
-'|------|------|------|------|',
-'| 基线复现 | 07-06 ~ 07-20 | GIN/GCN/SchNet 基线 | ✅ 完成 |',
-'| 模型改进 | 07-21 ~ 08-25 | 全局节点 + 边特征 | 🔄 进行中 |',
-'| 论文撰写 | 08-26 ~ 10-05 | 投稿 workshop | ⏳ 未开始 |',
-  ].join('\n');
+/* ---------------- LaTeX manuscript parsing ---------------- */
+/* Content of the balanced {...} group whose opening brace is at openIdx */
+function braceAt(s, openIdx){
+  let depth=0;
+  for(let i=openIdx;i<s.length;i++){
+    const ch=s[i];
+    if(ch==='\\'){ i++; continue; }
+    if(ch==='{') depth++;
+    else if(ch==='}'){ depth--; if(!depth) return s.slice(openIdx+1,i); }
+  }
+  return s.slice(openIdx+1);
+}
+/* Symbols substituted before commands are stripped, so prose keeps its meaning */
+const TEX_SYM={
+  '\\times':'×','\\cdot':'·','\\pm':'±','\\mp':'∓','\\le':'≤','\\leq':'≤','\\ge':'≥','\\geq':'≥',
+  '\\approx':'≈','\\sim':'~','\\neq':'≠','\\to':'→','\\rightarrow':'→','\\leftarrow':'←','\\ll':'≪','\\gg':'≫',
+  '\\alpha':'α','\\beta':'β','\\gamma':'γ','\\delta':'δ','\\epsilon':'ε','\\varepsilon':'ε','\\lambda':'λ',
+  '\\mu':'μ','\\sigma':'σ','\\tau':'τ','\\theta':'θ','\\phi':'φ','\\omega':'ω','\\eta':'η','\\rho':'ρ',
+  '\\Delta':'Δ','\\Sigma':'Σ','\\Omega':'Ω','\\infty':'∞','\\ldots':'…','\\dots':'…','\\cdots':'…',
+};
+/* LaTeX fragment → readable prose (approximate, good enough to read) */
+function texText(s){
+  if(!s) return '';
+  let t=s;
+  t=t.replace(/\\%/g,'\u0001').replace(/(^|[^\\])%.*$/gm,'$1');
+  t=t.replace(/\\([ &$#_{}])/g,'$1');
+  t=t.replace(/\\[a-zA-Z]+/g, m=>TEX_SYM[m]!==undefined? TEX_SYM[m] : m);
+  t=t.replace(/\\(?:label|index|vspace|hspace|nonumber|centering|noindent|todo)\s*\{[^{}]*\}/g,'');
+  t=t.replace(/\\(?:cite[tp]?\*?|citep|citet)\s*(?:\[[^\]]*\])*\s*\{[^}]*\}/g,'[ref]');
+  t=t.replace(/\\(?:eq)?ref\s*\{[^}]*\}/g,'(ref)');
+  t=t.replace(/\$\$?([^$]*)\$\$?/g,(m,x)=>x.replace(/\\[a-zA-Z]+/g,'').replace(/[{}^_]/g,''));
+  for(let i=0;i<4;i++)
+    t=t.replace(/\\(?:emph|textit|textbf|texttt|textsc|text|mbox|underline|section|subsection|subsubsection|title|caption)\s*(?:\[[^\]]*\])?\s*\{([^{}]*)\}/g,'$1');
+  t=t.replace(/\\begin\{[^}]*\}|\\end\{[^}]*\}/g,' ');
+  t=t.replace(/\\[a-zA-Z]+\*?\s*(?:\[[^\]]*\])?\s*\{([^{}]*)\}/g,'$1');
+  t=t.replace(/\\[a-zA-Z]+\*?/g,' ').replace(/\\\\/g,' ').replace(/\\[,;:!]/g,' ');
+  t=t.replace(/``|''/g,'"').replace(/---/g,'—').replace(/--/g,'–');
+  t=t.replace(/[{}]/g,'').replace(/~/g,' ');
+  t=t.replace(/\u0001/g,'%');
+  return t.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+}
+function wordCount(s){
+  const t=texText(s);
+  if(!t) return 0;
+  return t.split(/\s+/).filter(w=>/[A-Za-z0-9一-鿿]/.test(w)).length;
+}
+function parseTex(src){
+  const out={kind:'tex', title:'', authors:[], abstract:'', keywords:'', sections:[],
+             todos:[], figures:[], tables:0, cites:new Set(), words:0};
+  const body=src.replace(/\r\n?/g,'\n');
+  const strip=body.replace(/\\%/g,'\u0001').replace(/(^|[^\\])%.*$/gm,'$1').replace(/\u0001/g,'\\%');
 
-  const commits=[
-    ['2026-08-01T16:42:00Z','result: E3 全局节点实验完成,测试 MAE 0.296 ± 0.004,较基线降 12%','3 个种子结果一致,假设 H1 成立。\n详细曲线见 research/results.json (R4)。'],
-    ['2026-08-01T10:18:00Z','fig: 补充 E3 训练曲线与误差分桶图'],
-    ['2026-07-31T21:05:00Z','exp: 启动 E3 第 3 个种子(seed=7)'],
-    ['2026-07-30T14:50:00Z','analysis: 按分子大小分桶分析 E2 误差,大分子(>20 原子)误差高 34%','支持长程相互作用假设,是 E3 的动机。'],
-    ['2026-07-28T11:32:00Z','result: E2 边特征消融完成,MAE 0.318,提升有限(-3.4%)'],
-    ['2026-07-27T09:15:00Z','fix: 修复验证集划分泄漏(同分子异构体跨集合)','重新跑了 E2 全部种子,结论不变。'],
-    ['2026-07-24T18:40:00Z','exp: E2 边特征消融,加入键类型与键长'],
-    ['2026-07-22T15:22:00Z','data: 缓存 QM9 预处理结果,训练提速 3.1x'],
-    ['2026-07-20T20:08:00Z','result: 三个基线复现完成,GIN 最优(MAE 0.336)','GIN 0.336 / SchNet 0.352 / GCN 0.401,与文献一致。'],
-    ['2026-07-16T13:45:00Z','exp: 复现 SchNet 基线'],
-    ['2026-07-12T10:30:00Z','feat: 训练框架搭建,支持多种子并行与早停'],
-    ['2026-07-09T16:20:00Z','data: QM9 下载与预处理脚本'],
-    ['2026-07-06T09:00:00Z','docs: 初始化项目,添加 CLAUDE.md 研究模板'],
-  ].map(function(a,i){
-    return { sha:('demo'+(1e6+i*7919).toString(16)+'abcdef0123456789').slice(0,40),
-      html_url:'#', author:null,
-      commit:{ message:a[1]+(a[2]?('\n\n'+a[2]):''), author:{name:'研究者', date:a[0]} } };
+  const tm=strip.match(/\\title\s*(?:\[[^\]]*\])?\s*\{/);
+  if(tm) out.title=texText(braceAt(strip, tm.index+tm[0].length-1));
+  const are=/\\author\s*(?:\[[^\]]*\])?\s*\{/g; let am;
+  while((am=are.exec(strip))){
+    const a=texText(braceAt(strip, am.index+am[0].length-1)).trim();
+    if(a && !out.authors.includes(a)) out.authors.push(a);
+  }
+  const ab=strip.match(/\\begin\{abstract\}([\s\S]*?)\\end\{abstract\}/);
+  if(ab) out.abstract=texText(ab[1]);
+  const kw=strip.match(/\\begin\{keywords\}([\s\S]*?)\\end\{keywords\}/);
+  if(kw) out.keywords=texText(kw[1]).replace(/\s*\\sep\s*/g,' · ').replace(/\s{2,}/g,' ');
+
+  const dstart=strip.indexOf('\\begin{document}');
+  const doc=dstart>=0? strip.slice(dstart) : strip;
+
+  [...doc.matchAll(/\\cite[tp]?\*?\s*(?:\[[^\]]*\])*\s*\{([^}]*)\}/g)]
+    .forEach(m=>m[1].split(',').forEach(k=>{ k=k.trim(); if(k) out.cites.add(k); }));
+  [...doc.matchAll(/\\includegraphics\s*(?:\[[^\]]*\])?\s*\{([^}]+)\}/g)]
+    .forEach(m=>{ const f=m[1].trim(); if(!out.figures.includes(f)) out.figures.push(f); });
+  out.tables=(doc.match(/\\begin\{table\*?\}/g)||[]).length;
+
+  /* Sections + per-section word counts, walking the document line by line */
+  const lines=doc.split('\n');
+  let cur=null;
+  const push=(level,title)=>{ cur={level, title, words:0, todos:0}; out.sections.push(cur); };
+  lines.forEach(line=>{
+    const sm=line.match(/\\(section|subsection|subsubsection)\s*\*?\s*(?:\[[^\]]*\])?\s*\{/);
+    if(sm){
+      const lvl={section:1, subsection:2, subsubsection:3}[sm[1]];
+      push(lvl, texText(braceAt(line, sm.index+sm[0].length-1)));
+      return;
+    }
+    const w=wordCount(line);
+    out.words+=w;
+    if(cur) cur.words+=w;
   });
 
-  const results={results:[
-    {id:'R4', experiment:'E3', title:'全局节点:训练/验证 MAE 曲线', date:'2026-08-01',
-     summary:'加入虚拟全局节点后收敛更快且更稳,最终测试 MAE 0.296,较 GIN 基线(0.336)下降 12%,假设 H1 成立。',
-     metrics:[{name:'测试 MAE (D)', value:'0.296', delta:'-12%', good:'down'},
-              {name:'R²', value:'0.981'},{name:'参数量', value:'1.8M'}],
-     chart:{type:'line', xLabel:'训练轮次 (epoch)', yLabel:'MAE (Debye)',
-       series:[
-        {name:'GIN 基线(验证)', data:[[5,0.62],[10,0.51],[15,0.455],[20,0.42],[25,0.398],[30,0.381],[35,0.368],[40,0.359],[45,0.352],[50,0.347],[55,0.343],[60,0.340],[65,0.338],[70,0.337]]},
-        {name:'+ 全局节点(验证)', data:[[5,0.55],[10,0.44],[15,0.392],[20,0.362],[25,0.342],[30,0.328],[35,0.318],[40,0.311],[45,0.306],[50,0.302],[55,0.300],[60,0.298],[65,0.297],[70,0.296]]}]},
-     tags:['E3','全局节点'], notes:'3 个种子(42/2026/7)均值;阴影区间见仓库 figures/。早停均触发于 62~71 轮。'},
-    {id:'R3', experiment:'E3', title:'预测值 vs 真实值(测试集抽样)', date:'2026-08-01',
-     summary:'预测与真实值高度一致(R² = 0.981),大偶极矩分子(μ > 5 D)仍轻微低估。',
-     chart:{type:'scatter', xLabel:'真实偶极矩 (D)', yLabel:'预测偶极矩 (D)', diag:true,
-       series:[{name:'测试集样本', data:[[0.3,0.34],[0.8,0.75],[1.1,1.18],[1.4,1.32],[1.7,1.66],[2.0,2.08],[2.2,2.13],[2.5,2.46],[2.8,2.85],[3.0,2.92],[3.2,3.28],[3.5,3.41],[3.8,3.76],[4.0,4.09],[4.2,4.11],[4.5,4.38],[4.8,4.69],[5.0,4.83],[5.3,5.11],[5.6,5.38],[5.9,5.62],[6.2,5.91],[6.5,6.18],[1.9,1.95],[2.7,2.71],[3.6,3.63],[0.5,0.52],[1.2,1.15],[4.4,4.47],[5.8,5.55]]}]},
-     tags:['E3','评估']},
-    {id:'R2', experiment:'E1', title:'基线模型对比', date:'2026-07-20',
-     summary:'GIN 在三个基线中最优(MAE 0.336),选定为后续改进的基础模型。',
-     metrics:[{name:'最优基线 MAE', value:'0.336'},{name:'训练耗时', value:'2.4 h'}],
-     chart:{type:'bar', xLabel:'模型', yLabel:'测试 MAE (Debye)',
-       series:[{name:'测试 MAE', data:[['GCN',0.401],['GAT',0.376],['SchNet',0.352],['GIN',0.336]]}]},
-     tags:['E1','基线']},
-    {id:'R1', experiment:'E2', title:'数据增强收益(按训练集规模)', date:'2026-07-28',
-     summary:'数据增强在小训练集(10k)下收益明显(-9%),全量数据下几乎无收益,仅在小样本场景保留。',
-     chart:{type:'bar', xLabel:'训练集规模', yLabel:'测试 MAE (Debye)',
-       series:[{name:'无增强', data:[['10k',0.52],['50k',0.40],['110k',0.336]]},
-               {name:'有增强', data:[['10k',0.473],['50k',0.392],['110k',0.334]]}]},
-     tags:['E2','数据增强']},
-  ]};
+  /* Parent sections roll up their children, so a section whose prose all lives in
+     subsections does not read as "0 words" */
+  out.sections.forEach((s,i)=>{
+    let sum=s.words;
+    for(let j=i+1;j<out.sections.length && out.sections[j].level>s.level;j++) sum+=out.sections[j].words;
+    s.total=sum;
+  });
 
-  const plan={experiments:[
-    {id:'E1', name:'基线复现(GCN/GAT/SchNet/GIN)', status:'done', start:'2026-07-06', end:'2026-07-20',
-     hypothesis:'GIN 或 SchNet 应达到文献报告的 0.33~0.36 MAE 区间',
-     expected:'复现误差与文献差距 < 5%', actual:'GIN 0.336,与文献一致;GCN 偏差 +8%(已定位为归一化差异)', next:'以 GIN 为基础模型'},
-    {id:'E2', name:'边特征与数据增强消融', status:'done', start:'2026-07-21', end:'2026-07-28',
-     hypothesis:'键类型/键长特征与几何增强各自带来 5% 以上提升',
-     expected:'MAE 降至 0.32 以下', actual:'边特征 -3.4%(0.318),增强仅在小样本有效——部分推翻假设', next:'转向长程建模(E3)'},
-    {id:'E3', name:'虚拟全局节点', status:'running', start:'2026-07-29', end:'2026-08-08',
-     hypothesis:'H1:全局节点弥补长程消息传递不足,MAE 降低 ≥ 8%',
-     expected:'MAE ≤ 0.31,大分子误差显著下降', actual:'前 3 种子 MAE 0.296 ± 0.004(-12%),假设成立', next:'补大分子分桶显著性检验'},
-    {id:'E4', name:'注意力式读出层', status:'planned', start:'2026-08-10', end:'2026-08-18',
-     hypothesis:'注意力读出优于 sum/mean 池化', expected:'在 E3 之上再降 3~5%'},
-    {id:'E5', name:'多属性联合训练', status:'planned', start:'2026-08-19', end:'2026-08-25',
-     hypothesis:'相关属性(HOMO/LUMO)联合训练可正则化表示', expected:'μ 的 MAE 持平或略降,收敛更快'},
-    {id:'E6', name:'与 Uni-Mol 对比实验', status:'blocked', start:'2026-08-05', end:'2026-08-12',
-     hypothesis:'', expected:'给出与预训练 3D 模型的公平对比',
-     actual:'', next:'等待计算资源配额(A100),预计 08-06 恢复'},
-   ], milestones:[
-    {date:'2026-07-20', label:'基线复现完成', done:true},
-    {date:'2026-08-25', label:'全部改进实验完成', done:false},
-    {date:'2026-09-15', label:'论文初稿', done:false},
-    {date:'2026-10-05', label:'Workshop 投稿截止', done:false},
-   ],
-   notes:'GPU 资源:实验室 2×3090 常驻;A100 需按周申请。'};
-
-  return { loaded:true, errors:{}, demo:true,
-    meta:{full_name:'示例 / 分子性质预测', description:'图神经网络预测分子偶极矩(演示数据)', html_url:'#',
-          default_branch:'main', pushed_at:'2026-08-01T16:42:00Z', private:false},
-    branch:'main', commits:commits, commitsDone:true, commitPage:1,
-    claudemd:md, results:results, plan:plan };
+  /* \todo{...} with the sentence it interrupts, so empty markers still read usefully */
+  let idx=0, secAt=0;
+  const secPos=[];
+  { const re=/\\(?:section|subsection|subsubsection)\s*\*?\s*(?:\[[^\]]*\])?\s*\{/g; let m;
+    while((m=re.exec(doc))) secPos.push(m.index); }
+  const tre=/\\todo\s*\{/g; let tm2;
+  while((tm2=tre.exec(doc))){
+    const open=tm2.index+tm2[0].length-1;
+    const text=texText(braceAt(doc, open)).trim();
+    while(secAt<secPos.length && secPos[secAt]<tm2.index) secAt++;
+    const sec=out.sections[Math.max(0,secAt-1)];
+    const before=doc.slice(Math.max(0,tm2.index-160), tm2.index);
+    const ctx=texText(before).split(/\n\n/).pop().trim().slice(-110);
+    out.todos.push({text, section:sec?sec.title:'', context:ctx});
+    if(sec) sec.todos++;
+    idx++;
+  }
+  return out;
+}
+/* Markdown manuscripts get the same shape so the view is identical */
+function parseMdManuscript(src){
+  const out={kind:'md', title:'', authors:[], abstract:'', keywords:'', sections:[],
+             todos:[], figures:[], tables:0, cites:new Set(), words:0};
+  const lines=src.replace(/\r\n?/g,'\n').split('\n');
+  let cur=null, inAbstract=false;
+  lines.forEach(line=>{
+    const h=line.match(/^(#{1,4})\s+(.*)$/);
+    if(h){
+      const lvl=h[1].length, title=h[2].trim();
+      if(lvl===1 && !out.title){ out.title=title; return; }
+      inAbstract=/^abstract$/i.test(title);
+      cur={level:Math.max(1,lvl-1), title, words:0, todos:0};
+      out.sections.push(cur);
+      return;
+    }
+    const w=line.split(/\s+/).filter(x=>/[A-Za-z0-9一-鿿]/.test(x)).length;
+    out.words+=w;
+    if(cur) cur.words+=w;
+    if(inAbstract && line.trim()) out.abstract+=(out.abstract?' ':'')+line.trim();
+    const im=line.match(/!\[[^\]]*\]\(([^)\s]+)\)/);
+    if(im && !out.figures.includes(im[1])) out.figures.push(im[1]);
+    const td=line.match(/(?:TODO|FIXME)\b:?\s*(.*)$/);
+    if(td){ out.todos.push({text:td[1].trim(), section:cur?cur.title:'', context:''}); if(cur) cur.todos++; }
+  });
+  return out;
 }
 
-/* ---------------- Markdown 渲染 ---------------- */
+/* ---------------- Markdown rendering (Methods tab) ---------------- */
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function slugify(t, used){
   let s=t.toLowerCase().trim().replace(/[^\w一-鿿]+/g,'-').replace(/^-+|-+$/g,'')||'sec';
   let base=s, i=2;
@@ -691,12 +749,12 @@ function slugify(t, used){
   return s;
 }
 function safeUrl(u, img){
-  /* 仅允许 http(s)/mailto/锚点/相对路径;图片额外允许 data:image */
+  /* http(s)/mailto/anchors/relative only; images may also be data:image */
   if(/^[a-z][\w+.-]*:/i.test(u) && !/^(https?:|mailto:)/i.test(u) && !(img&&/^data:image\//i.test(u))) return null;
   return u;
 }
 function mdInline(s){
-  /* s 已经过 esc()。行内代码优先保护 */
+  /* s is already esc()'d. Inline code is protected first. */
   const codes=[];
   s=s.replace(/`([^`]+)`/g,(m,c)=>{ codes.push(c); return '\u0000'+(codes.length-1)+'\u0000'; });
   s=s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g,(m,alt,src)=>{
@@ -717,11 +775,10 @@ function mdRender(src){
   const lines=src.replace(/\r\n?/g,'\n').split('\n');
   const out=[], toc=[], used=new Set();
   let i=0, firstH1=false;
-  function flushPara(buf){ if(buf.length){ out.push('<p>'+mdInline(esc(buf.join(' ')))+'</p>'); buf.length=0; } }
   const para=[];
+  function flushPara(buf){ if(buf.length){ out.push('<p>'+mdInline(esc(buf.join(' ')))+'</p>'); buf.length=0; } }
   while(i<lines.length){
     const ln=lines[i];
-    /* 代码块 */
     let m=ln.match(/^```(\w*)\s*$/);
     if(m){
       flushPara(para);
@@ -731,7 +788,6 @@ function mdRender(src){
       out.push('<pre><code>'+esc(buf.join('\n'))+'</code></pre>');
       continue;
     }
-    /* 标题 */
     m=ln.match(/^(#{1,6})\s+(.*)$/);
     if(m){
       flushPara(para);
@@ -741,7 +797,6 @@ function mdRender(src){
       out.push(`<h${lv} id="${id}">${mdInline(esc(txt))}</h${lv}>`);
       if(lv===1&&!firstH1){
         firstH1=true;
-        /* 首个 H1 后若紧跟引用块,作为导语 */
         let j=i+1; while(j<lines.length&&!lines[j].trim()) j++;
         if(j<lines.length&&/^>\s?/.test(lines[j])){
           const q=[];
@@ -752,9 +807,7 @@ function mdRender(src){
       }
       i++; continue;
     }
-    /* 分隔线 */
     if(/^\s*([-*_])\s*(\1\s*){2,}$/.test(ln)){ flushPara(para); out.push('<hr>'); i++; continue; }
-    /* 引用块 */
     if(/^>\s?/.test(ln)){
       flushPara(para);
       const q=[];
@@ -762,7 +815,6 @@ function mdRender(src){
       out.push('<blockquote>'+q.map(x=>x.trim()?('<p>'+mdInline(esc(x))+'</p>'):'').join('')+'</blockquote>');
       continue;
     }
-    /* 表格 */
     if(/^\s*\|.*\|\s*$/.test(ln) && i+1<lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
       flushPara(para);
       const parseRow=r=>r.trim().replace(/^\||\|$/g,'').split('|').map(c=>c.trim());
@@ -774,7 +826,6 @@ function mdRender(src){
       out.push(t+'</tbody></table>');
       continue;
     }
-    /* 列表(支持一层缩进嵌套与任务项) */
     if(/^\s*([-*+]|\d+[.)])\s+/.test(ln)){
       flushPara(para);
       const items=[];
@@ -782,7 +833,6 @@ function mdRender(src){
         const im=lines[i].match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
         items.push({indent:im[1].length, ordered:/\d/.test(im[2]), text:im[3]});
         i++;
-        /* 悬挂续行 */
         while(i<lines.length&&/^\s{2,}\S/.test(lines[i])&&!/^\s*([-*+]|\d+[.)])\s+/.test(lines[i])){
           items[items.length-1].text+=' '+lines[i].trim(); i++;
         }
@@ -799,9 +849,7 @@ function mdRender(src){
           if(tm){
             const done=tm[1]!==' ';
             h+=`<li class="task${done?' done':''}"><span class="cb">${done?'✓':''}</span>${mdInline(esc(tm[2]))}${buildList(sub)}</li>`;
-          }else{
-            h+='<li>'+mdInline(esc(it.text))+buildList(sub)+'</li>';
-          }
+          }else h+='<li>'+mdInline(esc(it.text))+buildList(sub)+'</li>';
           k=j;
         }
         return h+'</'+tag+'>';
@@ -809,7 +857,6 @@ function mdRender(src){
       out.push(buildList(items));
       continue;
     }
-    /* 空行 / 段落 */
     if(!ln.trim()){ flushPara(para); i++; continue; }
     para.push(ln.trim()); i++;
   }
@@ -817,7 +864,7 @@ function mdRender(src){
   return {html:out.join('\n'), toc};
 }
 
-/* ---------------- 悬浮提示 ---------------- */
+/* ---------------- Tooltip ---------------- */
 const tip=$('#tip');
 function tipShow(x,y,build){
   tip.textContent='';
@@ -830,7 +877,7 @@ function tipShow(x,y,build){
   tip.style.left=px+'px'; tip.style.top=py+'px';
 }
 function tipHide(){ tip.style.visibility='hidden'; }
-function tipTitle(t){ const d=el('div','t-title',t); return d; }
+function tipTitle(t){ return el('div','t-title',t); }
 function tipRow(color,value,name,keyShape){
   const r=el('div','t-row');
   const k=el('span','t-key'); k.style.background=color;
@@ -839,7 +886,7 @@ function tipRow(color,value,name,keyShape){
   return r;
 }
 
-/* ---------------- 图表渲染 ---------------- */
+/* ---------------- Charts ---------------- */
 const SERIES_VARS=['--s1','--s2','--s3','--s4','--s5','--s6','--s7','--s8'];
 const NS='http://www.w3.org/2000/svg';
 function svgEl(tag, attrs){
@@ -864,58 +911,29 @@ function ticksFor(min,max,count){
   for(let v=lo; v<=hi+step/2; v+=step) t.push(+v.toFixed(10));
   return {lo,hi,step,ticks:t};
 }
-
-/* 注册图表以便窗口尺寸变化时重建 */
 function registerChart(host, build){
   state.chartRegistry.push({host, build});
-  requestAnimationFrame(build); /* 等待布局完成再取容器宽度 */
+  requestAnimationFrame(build); /* measure after layout */
 }
 addEventListener('resize', debounce(()=>{
   for(const c of state.chartRegistry) if(document.contains(c.host)) c.build();
 },200));
 
-function chartCard(spec, opts){
-  /* 返回 {node, build};spec: {type,xLabel,yLabel,series,diag} */
-  opts=opts||{};
-  const wrap=el('div','chartwrap');
-  let series=(spec.series||[]).filter(s=>Array.isArray(s.data)&&s.data.length);
-  let capNote='';
-  if(spec.type==='scatter'&&series.length>3){ capNote=`(散点图最多显示 3 个系列,已省略 ${series.length-3} 个)`; series=series.slice(0,3); }
-  else if(series.length>8){ capNote=`(最多显示 8 个系列,已省略 ${series.length-8} 个)`; series=series.slice(0,8); }
-  if(!series.length){ wrap.append(el('div','muted small','(无图表数据)')); return wrap; }
-
-  /* 图例(≥2 个系列时必有) */
-  if(series.length>=2){
-    const lg=el('div','legend');
-    series.forEach((s,si)=>{
-      const li=el('span','li');
-      const key=el('span', spec.type==='line'?'lkey-line':'lkey-rect');
-      key.style.background=`var(${SERIES_VARS[si]})`;
-      li.append(key, document.createTextNode(s.name||('系列 '+(si+1))));
-      lg.append(li);
-    });
-    if(capNote) lg.append(el('span','muted small',capNote));
-    wrap.append(lg);
+function collectX(series){
+  const seen=new Set(), xs=[];
+  for(const s of series) for(const d of s.data){
+    const k=String(d[0]);
+    if(!seen.has(k)){ seen.add(k); xs.push(d[0]); }
   }
-  const svgHost=el('div');
-  wrap.append(svgHost);
-
-  /* 数据表视图(始终可用) */
-  const tblBox=el('div'); tblBox.hidden=true;
-  wrap.append(tblBox);
-  buildDataTable(tblBox, spec, series);
-
-  function build(){ drawChart(svgHost, spec, series); }
-  registerChart(svgHost, build);
-  wrap._toggleTable=()=>{ tblBox.hidden=!tblBox.hidden; return !tblBox.hidden; };
-  return wrap;
+  if(xs.every(x=>typeof x==='number'||(!isNaN(parseFloat(x))&&isFinite(x)))) xs.sort((a,b)=>+a-+b);
+  return xs;
 }
 function buildDataTable(box, spec, series){
   const cats=collectX(series);
   const t=el('table','datatable');
   const thr=el('tr');
   thr.append(el('th',null,spec.xLabel||'X'));
-  series.forEach(s=>thr.append(el('th',null,s.name||'值')));
+  series.forEach(s=>thr.append(el('th',null,s.name||'Value')));
   const thead=el('thead'); thead.append(thr); t.append(thead);
   const tb=el('tbody');
   cats.forEach(x=>{
@@ -929,14 +947,34 @@ function buildDataTable(box, spec, series){
   });
   t.append(tb); box.append(t);
 }
-function collectX(series){
-  const seen=new Set(), xs=[];
-  for(const s of series) for(const d of s.data){
-    const k=String(d[0]);
-    if(!seen.has(k)){ seen.add(k); xs.push(d[0]); }
+function chartCard(spec){
+  const wrap=el('div','chartwrap');
+  let series=(spec.series||[]).filter(s=>Array.isArray(s.data)&&s.data.length);
+  let capNote='';
+  if(spec.type==='scatter'&&series.length>3){ capNote=`(scatter shows at most 3 series; ${series.length-3} omitted)`; series=series.slice(0,3); }
+  else if(series.length>8){ capNote=`(at most 8 series shown; ${series.length-8} omitted)`; series=series.slice(0,8); }
+  if(!series.length){ wrap.append(el('div','muted small','(no chart data)')); return wrap; }
+
+  if(series.length>=2){
+    const lg=el('div','legend');
+    series.forEach((s,si)=>{
+      const li=el('span','li');
+      const key=el('span', spec.type==='line'?'lkey-line':'lkey-rect');
+      key.style.background=`var(${SERIES_VARS[si]})`;
+      li.append(key, document.createTextNode(s.name||('Series '+(si+1))));
+      lg.append(li);
+    });
+    if(capNote) lg.append(el('span','muted small',capNote));
+    wrap.append(lg);
   }
-  if(xs.every(x=>typeof x==='number'||(!isNaN(parseFloat(x))&&isFinite(x)))) xs.sort((a,b)=>+a-+b);
-  return xs;
+  const svgHost=el('div');
+  wrap.append(svgHost);
+  const tblBox=el('div'); tblBox.hidden=true;
+  wrap.append(tblBox);
+  buildDataTable(tblBox, spec, series);
+  registerChart(svgHost, ()=>drawChart(svgHost, spec, series));
+  wrap._toggleTable=()=>{ tblBox.hidden=!tblBox.hidden; return !tblBox.hidden; };
+  return wrap;
 }
 
 function drawChart(host, spec, series){
@@ -946,16 +984,14 @@ function drawChart(host, spec, series){
   const pad={t:14, r:spec.type==='line'?58:18, b:spec.xLabel?46:30, l:56};
   const iw=W-pad.l-pad.r, ih=H-pad.t-pad.b;
   const svg=svgEl('svg',{class:'chart', width:W, height:H, viewBox:`0 0 ${W} ${H}`, role:'img'});
-  svg.setAttribute('aria-label', (spec.yLabel||'')+' 图表');
+  svg.setAttribute('aria-label', (spec.yLabel||'')+' chart');
 
-  /* Y 值域 */
   let ymin=Infinity, ymax=-Infinity;
   series.forEach(s=>s.data.forEach(d=>{ const v=+d[1]; if(v<ymin)ymin=v; if(v>ymax)ymax=v; }));
   if(spec.type==='bar'){ ymin=Math.min(0,ymin); ymax=Math.max(0,ymax); }
   const yt=ticksFor(ymin,ymax,5);
   const yPos=v=> pad.t + ih - (v-yt.lo)/(yt.hi-yt.lo)*ih;
 
-  /* X 定位 */
   const cats=collectX(series);
   let xPos, bandW=0, xOfIndex;
   if(numericX && spec.type!=='bar'){
@@ -964,7 +1000,6 @@ function drawChart(host, spec, series){
     if(xmin===xmax){ xmin-=1; xmax+=1; }
     xPos=v=> pad.l + (v-xmin)/(xmax-xmin)*iw;
     xOfIndex=i=>xPos(+cats[i]);
-    /* X 刻度 */
     const xtk=ticksFor(xmin,xmax,Math.min(7,Math.max(3,Math.floor(iw/80))));
     for(const tv of xtk.ticks){
       if(tv<xmin-1e-9||tv>xmax+1e-9) continue;
@@ -973,10 +1008,8 @@ function drawChart(host, spec, series){
     }
   }else{
     bandW=iw/cats.length;
-    xPos=null;
     xOfIndex=i=> pad.l + bandW*i + bandW/2;
     const every=Math.ceil(cats.length/Math.max(2,Math.floor(iw/70)));
-    /* 可容纳字符数按实际带宽估算(每字约 6.5px),而非固定裁剪 */
     const maxCh=Math.max(6, Math.floor(bandW*every/6.5));
     cats.forEach((c,ci)=>{
       if(ci%every!==0&&ci!==cats.length-1) return;
@@ -988,18 +1021,15 @@ function drawChart(host, spec, series){
     });
   }
 
-  /* 网格线(横向,细,实线)与 Y 刻度 */
   for(const tv of yt.ticks){
     const y=yPos(tv);
     svg.append(svgEl('line',{x1:pad.l, x2:W-pad.r, y1:y, y2:y, class:'gline'}));
     const tx=svgEl('text',{x:pad.l-8, y:y+3.5, 'text-anchor':'end', class:'ticklbl'});
     tx.textContent=fmtNum(tv); svg.append(tx);
   }
-  /* 基线 */
   const baseY=yPos(spec.type==='bar'?0:yt.lo);
   svg.append(svgEl('line',{x1:pad.l, x2:W-pad.r, y1:baseY, y2:baseY, class:'baseline'}));
 
-  /* 轴标题 */
   if(spec.xLabel){
     const tx=svgEl('text',{x:pad.l+iw/2, y:H-6, 'text-anchor':'middle', class:'axlbl'});
     tx.textContent=spec.xLabel; svg.append(tx);
@@ -1009,21 +1039,14 @@ function drawChart(host, spec, series){
       transform:`rotate(-90 12 ${pad.t+ih/2})`});
     tx.textContent=spec.yLabel; svg.append(tx);
   }
-
-  /* y=x 参考线(散点图可选) */
   if(spec.type==='scatter'&&spec.diag&&numericX){
     const lo=Math.max(yt.lo, +cats[0]), hi=Math.min(yt.hi, +cats[cats.length-1]);
-    if(hi>lo){
-      svg.append(svgEl('line',{x1:xPos(lo), y1:yPos(lo), x2:xPos(hi), y2:yPos(hi),
-        stroke:'var(--axis)', 'stroke-width':1}));
-    }
+    if(hi>lo) svg.append(svgEl('line',{x1:xPos(lo), y1:yPos(lo), x2:xPos(hi), y2:yPos(hi), stroke:'var(--axis)', 'stroke-width':1}));
   }
 
   const surface='var(--surface)';
   if(spec.type==='bar'){
-    /* 分组柱状:柱宽 ≤24px,柱间 2px 表面缝,顶部 4px 圆角、底部方角 */
-    const n=series.length;
-    const gap=2;
+    const n=series.length, gap=2;
     const barW=Math.min(24, Math.max(6,(bandW*0.72-gap*(n-1))/n));
     const groupW=barW*n+gap*(n-1);
     cats.forEach((c,ci)=>{
@@ -1037,19 +1060,17 @@ function drawChart(host, spec, series){
         const top=Math.min(y0,y1), h=Math.abs(y0-y1);
         const r=Math.min(4, h/2, barW/2);
         const up=v>=0;
-        let dPath;
-        if(up) dPath=`M${x},${y0} L${x},${top+r} Q${x},${top} ${x+r},${top} L${x+barW-r},${top} Q${x+barW},${top} ${x+barW},${top+r} L${x+barW},${y0} Z`;
-        else dPath=`M${x},${y0} L${x},${top+h-r} Q${x},${top+h} ${x+r},${top+h} L${x+barW-r},${top+h} Q${x+barW},${top+h} ${x+barW},${top+h-r} L${x+barW},${y0} Z`;
+        const dPath= up
+          ? `M${x},${y0} L${x},${top+r} Q${x},${top} ${x+r},${top} L${x+barW-r},${top} Q${x+barW},${top} ${x+barW},${top+r} L${x+barW},${y0} Z`
+          : `M${x},${y0} L${x},${top+h-r} Q${x},${top+h} ${x+r},${top+h} L${x+barW-r},${top+h} Q${x+barW},${top+h} ${x+barW},${top+h-r} L${x+barW},${y0} Z`;
         const path=svgEl('path',{d:dPath, class:'bar', 'data-cat':ci});
         path.style.fill=`var(${SERIES_VARS[si]})`;
         svg.append(path);
-        /* 单系列且类目不多 → 柱顶数值标注 */
         if(n===1&&cats.length<=12){
           const tl=svgEl('text',{x:x+barW/2, y:(up?top:top+h)+(up?-6:14), 'text-anchor':'middle', class:'dlabel'});
           tl.textContent=fmtNum(v); svg.append(tl);
         }
       });
-      /* 类目整列命中区:悬停显示该类目全部系列 */
       const hit=svgEl('rect',{x:pad.l+bandW*ci, y:pad.t, width:bandW, height:ih, class:'hit', tabindex:0});
       hit.setAttribute('aria-label', String(c));
       const show=(cx,cy)=>{
@@ -1074,11 +1095,10 @@ function drawChart(host, spec, series){
       s.data.forEach(d=>{
         const cx=numericX?xPos(+d[0]):xOfIndex(cats.findIndex(c=>String(c)===String(d[0])));
         const cy=yPos(+d[1]);
-        const ring=svgEl('circle',{cx, cy, r:6.5, fill:surface});
+        svg.append(svgEl('circle',{cx, cy, r:6.5, fill:surface}));
         const dot=svgEl('circle',{cx, cy, r:4.5});
         dot.style.fill=`var(${SERIES_VARS[si]})`;
-        svg.append(ring,dot);
-        /* ≥24px 透明命中区 */
+        svg.append(dot);
         const hit=svgEl('circle',{cx, cy, r:13, class:'hit', tabindex:0});
         hit.setAttribute('aria-label',`${s.name||''} (${fmtNum(+d[0])}, ${fmtNum(+d[1])})`);
         const show=(px,py)=>tipShow(px,py,box=>{
@@ -1098,22 +1118,21 @@ function drawChart(host, spec, series){
     const endLabels=[];
     series.forEach((s,si)=>{
       const pts=s.data.map(d=>({x:numericX?xPos(+d[0]):xOfIndex(cats.findIndex(c=>String(c)===String(d[0]))), y:yPos(+d[1]), v:+d[1]}));
-      const dPath=pts.map((p,pi)=>(pi?'L':'M')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
-      const path=svgEl('path',{d:dPath, fill:'none', 'stroke-width':2, 'stroke-linecap':'round', 'stroke-linejoin':'round'});
+      const path=svgEl('path',{d:pts.map((p,pi)=>(pi?'L':'M')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' '),
+        fill:'none', 'stroke-width':2, 'stroke-linecap':'round', 'stroke-linejoin':'round'});
       path.style.stroke=`var(${SERIES_VARS[si]})`;
       svg.append(path);
       const drawMk=pts.length<=42;
       pts.forEach((p,pi)=>{
         if(!drawMk&&pi!==pts.length-1) return;
-        const ring=svgEl('circle',{cx:p.x, cy:p.y, r:6, fill:surface});
+        svg.append(svgEl('circle',{cx:p.x, cy:p.y, r:6, fill:surface}));
         const dot=svgEl('circle',{cx:p.x, cy:p.y, r:4});
         dot.style.fill=`var(${SERIES_VARS[si]})`;
-        svg.append(ring,dot);
+        svg.append(dot);
       });
       const last=pts[pts.length-1];
       endLabels.push({y:last.y, x:last.x, v:last.v, si});
     });
-    /* 端点数值直标(≤4 系列且互不碰撞时) */
     if(series.length<=4){
       const sorted=endLabels.slice().sort((a,b)=>a.y-b.y);
       let collide=false;
@@ -1123,11 +1142,10 @@ function drawChart(host, spec, series){
         tl.textContent=fmtNum(L.v); svg.append(tl);
       });
     }
-    /* 十字线 + 全系列悬浮读数 */
     const xh=svgEl('line',{y1:pad.t, y2:pad.t+ih, class:'xhair'});
     svg.append(xh);
     const overlay=svgEl('rect',{x:pad.l, y:pad.t, width:iw, height:ih, class:'hit', tabindex:0});
-    overlay.setAttribute('aria-label','折线图,方向键浏览数据点');
+    overlay.setAttribute('aria-label','Line chart — use arrow keys to step through points');
     let ai=-1;
     function showAt(idx, cx, cy){
       ai=idx;
@@ -1162,7 +1180,7 @@ function drawChart(host, spec, series){
   host.append(svg);
 }
 
-/* 迷你趋势线(周提交数) */
+/* Weekly commit sparkline */
 function sparkline(commits, weeks){
   weeks=weeks||12;
   const now=new Date(); now.setHours(0,0,0,0);
@@ -1186,11 +1204,11 @@ function sparkline(commits, weeks){
   return svg;
 }
 
-/* ---------------- 甘特图 ---------------- */
+/* ---------------- Gantt ---------------- */
 function renderGantt(host, experiments, milestones){
   host.textContent='';
   const exps=experiments.filter(e=>parseDate(e.start)&&parseDate(e.end));
-  if(!exps.length){ host.append(el('div','muted small','(实验缺少 start/end 日期,无法绘制时间线)')); return; }
+  if(!exps.length){ host.append(el('div','muted small','(experiments need start/end dates to appear on the timeline)')); return; }
   const today=new Date(); today.setHours(0,0,0,0);
   let lo=today, hi=today;
   exps.forEach(e=>{ const s=parseDate(e.start), t=parseDate(e.end); if(s<lo)lo=s; if(t>hi)hi=t; });
@@ -1200,17 +1218,16 @@ function renderGantt(host, experiments, milestones){
   const span=(hi-lo)/86400000;
 
   const wrap=el('div','gantt-wrap');
-  const lblCol=el('div');
-  const chartCol=el('div');
+  const lblCol=el('div'), chartCol=el('div');
   wrap.append(lblCol,chartCol);
   host.append(wrap);
 
-  const W=Math.max(280, chartCol.clientWidth||host.clientWidth-200), rowH=34, headH=26, msH=(milestones&&milestones.length)?24:0;
+  const W=Math.max(280, chartCol.clientWidth||host.clientWidth-200), rowH=34, headH=26,
+        msH=(milestones&&milestones.length)?24:0;
   const H=headH+msH+exps.length*rowH+6;
   const X=d=> (d-lo)/(hi-lo)*(W-8)+4;
 
-  /* 左侧行标签 */
-  lblCol.append(el('div',null,'')); lblCol.firstChild.style.height=(headH+msH)+'px';
+  const spacer=el('div'); spacer.style.height=(headH+msH)+'px'; lblCol.append(spacer);
   exps.forEach(e=>{
     const row=el('div','gantt-row-lbl');
     row.append(el('span','exp-id',e.id||''));
@@ -1220,10 +1237,9 @@ function renderGantt(host, experiments, milestones){
   });
 
   const svg=svgEl('svg',{class:'chart', width:W, height:H, viewBox:`0 0 ${W} ${H}`});
-  /* 时间刻度:跨度小用周,大用月 */
   const ticks=[];
   if(span<=70){
-    const t=new Date(lo); t.setDate(t.getDate()+((8-t.getDay())%7)); /* 下一个周一 */
+    const t=new Date(lo); t.setDate(t.getDate()+((8-t.getDay())%7));
     while(t<=hi){ ticks.push(new Date(t)); t.setDate(t.getDate()+7); }
   }else{
     const t=new Date(lo.getFullYear(), lo.getMonth()+1, 1);
@@ -1233,10 +1249,9 @@ function renderGantt(host, experiments, milestones){
     const x=X(t);
     svg.append(svgEl('line',{x1:x, x2:x, y1:headH, y2:H, class:'gline'}));
     const tx=svgEl('text',{x, y:12, 'text-anchor':'middle', class:'ticklbl'});
-    tx.textContent=`${t.getMonth()+1}/${t.getDate()}`;
+    tx.textContent=`${MONTHS[t.getMonth()]} ${t.getDate()}`;
     svg.append(tx);
   });
-  /* 里程碑菱形 */
   (milestones||[]).forEach(m=>{
     const d=parseDate(m.date); if(!d) return;
     const x=X(d), y=headH+msH/2;
@@ -1244,7 +1259,7 @@ function renderGantt(host, experiments, milestones){
     dia.style.fill=m.done?'var(--good)':'var(--s7)';
     dia.style.stroke='var(--surface)'; dia.style.strokeWidth='2';
     const show=(px,py)=>tipShow(px,py,box=>{
-      box.append(tipTitle('里程碑 · '+fmtDate(d,true)));
+      box.append(tipTitle('Milestone · '+fmtDate(d,true)));
       box.append(el('div',null,(m.done?'✓ ':'')+(m.label||'')));
     });
     dia.addEventListener('pointermove',e=>show(e.clientX,e.clientY));
@@ -1253,7 +1268,6 @@ function renderGantt(host, experiments, milestones){
     dia.addEventListener('blur',tipHide);
     svg.append(dia);
   });
-  /* 实验条 */
   exps.forEach((e,ei)=>{
     const s=parseDate(e.start), t=parseDate(e.end);
     const y=headH+msH+ei*rowH+rowH/2;
@@ -1272,20 +1286,191 @@ function renderGantt(host, experiments, milestones){
     bar.addEventListener('blur',tipHide);
     svg.append(bar);
   });
-  /* 今天竖线 */
   if(today>=lo&&today<=hi){
     const x=X(today);
     svg.append(svgEl('line',{x1:x, x2:x, y1:headH-4, y2:H, stroke:'var(--ink2)', 'stroke-width':1}));
     const tx=svgEl('text',{x:x+4, y:headH+8, class:'axlbl'});
-    tx.textContent='今天'; svg.append(tx);
+    tx.textContent='Today'; svg.append(tx);
   }
   chartCol.append(svg);
 }
 
-/* ---------------- 视图渲染 ---------------- */
-const view=$('#view');
-/* 从 ?repos=owner/repo,owner/repo#branch 读取项目并落盘到本机 localStorage。
-   用于私有项目:清单只存在于链接与浏览器本地,不进入公开仓库。 */
+/* ---------------- Demo data ---------------- */
+function demoBundle(){
+  const md=[
+'# Molecular property prediction (GNN)',
+'',
+'> Predicting molecular dipole moments on QM9 with graph neural networks; the goal is a test MAE below 0.30 D at no more than 2M parameters.',
+'',
+'## Project overview',
+'- **Field**: graph machine learning / computational chemistry',
+'- **Current stage**: model improvements (stage 2 of 3)',
+'- **Timeframe**: 2026-07 to 2026-10',
+'',
+'## Research questions and hypotheses',
+'- **RQ1**: Does the number of message-passing rounds relative to molecule size limit long-range interaction modelling?',
+'  - **H1**: A virtual global node compensates for insufficient long-range propagation and lowers MAE by at least 8%.',
+'- **RQ2**: How much does augmentation (random rotation, bond perturbation) help in the low-data regime?',
+'',
+'## Method',
+'### Overall approach',
+'Start from a GIN baseline and add one change at a time (global node, edge features, augmentation), comparing against the same split and seeds.',
+'',
+'### Experimental design',
+'1. Fixed split: 110k train / 10k val / 13k test, seed 42',
+'2. Three seeds per configuration; report mean ± sd',
+'3. Early stopping: no val-MAE improvement for 20 epochs',
+'',
+'### Data',
+'- QM9 (134k molecules), target property: dipole moment μ (Debye)',
+'- Preprocessing: `scripts/prepare_qm9.py`, cached under `data/processed/`',
+'',
+'### Analysis and evaluation',
+'- Primary metric: test MAE; secondary: R², error bucketed by molecule size',
+'- Significance: paired t-test, p < 0.05',
+'',
+'## Environment and reproduction',
+'```bash',
+'conda env create -f environment.yml',
+'python train.py --config configs/gin_base.yaml --seed 42',
+'```',
+'',
+'## Logging conventions',
+'> This section is the working agreement for Claude Code; humans should follow it too.',
+'',
+'1. Commit format: `<type>: <summary>`, type ∈ exp / result / data / analysis / fig / paper / feat / fix / docs / chore',
+'2. When an experiment finishes: update status and `actual` in `research/plan.json`',
+'3. Every reportable result goes into `research/results.json` (chart data or figure images)',
+'4. Figures live in `figures/`, named `<experiment-id>_<description>.png`',
+'5. Dates are always `YYYY-MM-DD`',
+'',
+'## Schedule',
+'| Stage | Window | Goal | Status |',
+'|-------|--------|------|--------|',
+'| Baselines | 07-06 ~ 07-20 | GIN/GCN/SchNet reproduced | ✅ done |',
+'| Improvements | 07-21 ~ 08-25 | global node + edge features | 🔄 running |',
+'| Writing | 08-26 ~ 10-05 | workshop submission | ⏳ not started |',
+  ].join('\n');
+
+  const commits=[
+    ['2026-08-01T16:42:00Z','result: E3 global-node run complete, test MAE 0.296 ± 0.004, 12% below baseline','Consistent across 3 seeds; H1 holds.\nCurves in research/results.json (R4).'],
+    ['2026-08-01T10:18:00Z','fig: add E3 training curves and error-by-size plot'],
+    ['2026-07-31T21:05:00Z','exp: launch third E3 seed (seed=7)'],
+    ['2026-07-30T14:50:00Z','analysis: E3 error bucketed by molecule size; large molecules (>20 atoms) 34% worse','Supports the long-range hypothesis and motivates E3.'],
+    ['2026-07-28T11:32:00Z','result: E2 edge-feature ablation done, MAE 0.318, limited gain (-3.4%)'],
+    ['2026-07-27T09:15:00Z','fix: repair validation split leakage (isomers spanning splits)','Reran all E2 seeds; conclusions unchanged.'],
+    ['2026-07-24T18:40:00Z','exp: E2 edge-feature ablation with bond type and length'],
+    ['2026-07-22T15:22:00Z','data: cache QM9 preprocessing, 3.1x faster training'],
+    ['2026-07-20T20:08:00Z','result: three baselines reproduced, GIN best (MAE 0.336)','GIN 0.336 / SchNet 0.352 / GCN 0.401, in line with the literature.'],
+    ['2026-07-16T13:45:00Z','exp: reproduce SchNet baseline'],
+    ['2026-07-12T10:30:00Z','feat: training harness with multi-seed runs and early stopping'],
+    ['2026-07-09T16:20:00Z','data: QM9 download and preprocessing scripts'],
+    ['2026-07-06T09:00:00Z','docs: initialise project, add CLAUDE.md research template'],
+  ].map(function(a,i){
+    return { sha:('demo'+(1e6+i*7919).toString(16)+'abcdef0123456789').slice(0,40),
+      html_url:'#', author:null,
+      commit:{ message:a[1]+(a[2]?('\n\n'+a[2]):''), author:{name:'Researcher', date:a[0]} } };
+  });
+
+  const results={results:[
+    {id:'R4', experiment:'E3', title:'Global node: train/validation MAE curves', date:'2026-08-01',
+     summary:'Adding a virtual global node converges faster and more stably; final test MAE 0.296, 12% below the GIN baseline (0.336). H1 holds.',
+     metrics:[{name:'Test MAE (D)', value:'0.296', delta:'-12%', good:'down'},
+              {name:'R²', value:'0.981'},{name:'Parameters', value:'1.8M'}],
+     chart:{type:'line', xLabel:'Epoch', yLabel:'MAE (Debye)',
+       series:[
+        {name:'GIN baseline (val)', data:[[5,0.62],[10,0.51],[15,0.455],[20,0.42],[25,0.398],[30,0.381],[35,0.368],[40,0.359],[45,0.352],[50,0.347],[55,0.343],[60,0.340],[65,0.338],[70,0.337]]},
+        {name:'+ global node (val)', data:[[5,0.55],[10,0.44],[15,0.392],[20,0.362],[25,0.342],[30,0.328],[35,0.318],[40,0.311],[45,0.306],[50,0.302],[55,0.300],[60,0.298],[65,0.297],[70,0.296]]}]},
+     tags:['E3','global node'], notes:'Mean of 3 seeds (42/2026/7); bands in figures/. Early stopping fired between epoch 62 and 71.'},
+    {id:'R3', experiment:'E3', title:'Predicted vs true dipole moment (test sample)', date:'2026-08-01',
+     summary:'Predictions track ground truth closely (R² = 0.981); large dipoles (μ > 5 D) are still slightly underestimated.',
+     chart:{type:'scatter', xLabel:'True dipole moment (D)', yLabel:'Predicted dipole moment (D)', diag:true,
+       series:[{name:'Test samples', data:[[0.3,0.34],[0.8,0.75],[1.1,1.18],[1.4,1.32],[1.7,1.66],[2.0,2.08],[2.2,2.13],[2.5,2.46],[2.8,2.85],[3.0,2.92],[3.2,3.28],[3.5,3.41],[3.8,3.76],[4.0,4.09],[4.2,4.11],[4.5,4.38],[4.8,4.69],[5.0,4.83],[5.3,5.11],[5.6,5.38],[5.9,5.62],[6.2,5.91],[6.5,6.18],[1.9,1.95],[2.7,2.71],[3.6,3.63],[0.5,0.52],[1.2,1.15],[4.4,4.47],[5.8,5.55]]}]},
+     tags:['E3','evaluation']},
+    {id:'R2', experiment:'E1', title:'Baseline comparison', date:'2026-07-20',
+     summary:'GIN is the strongest of the three baselines (MAE 0.336) and becomes the base model for later work.',
+     metrics:[{name:'Best baseline MAE', value:'0.336'},{name:'Training time', value:'2.4 h'}],
+     chart:{type:'bar', xLabel:'Model', yLabel:'Test MAE (Debye)',
+       series:[{name:'Test MAE', data:[['GCN',0.401],['GAT',0.376],['SchNet',0.352],['GIN',0.336]]}]},
+     tags:['E1','baseline']},
+    {id:'R1', experiment:'E2', title:'Augmentation gain by training-set size', date:'2026-07-28',
+     summary:'Augmentation helps clearly at 10k examples (-9%) and vanishes at full size; kept only for the low-data regime.',
+     chart:{type:'bar', xLabel:'Training set size', yLabel:'Test MAE (Debye)',
+       series:[{name:'No augmentation', data:[['10k',0.52],['50k',0.40],['110k',0.336]]},
+               {name:'With augmentation', data:[['10k',0.473],['50k',0.392],['110k',0.334]]}]},
+     tags:['E2','augmentation']},
+  ]};
+
+  const plan={experiments:[
+    {id:'E1', name:'Baseline reproduction (GCN/GAT/SchNet/GIN)', status:'done', start:'2026-07-06', end:'2026-07-20',
+     hypothesis:'GIN or SchNet should land in the 0.33–0.36 MAE range reported in the literature',
+     expected:'Reproduction within 5% of published numbers', actual:'GIN 0.336, matching the literature; GCN off by +8% (traced to a normalisation difference)', next:'Adopt GIN as the base model'},
+    {id:'E2', name:'Edge features and augmentation ablation', status:'done', start:'2026-07-21', end:'2026-07-28',
+     hypothesis:'Bond type/length features and geometric augmentation each give at least 5%',
+     expected:'MAE below 0.32', actual:'Edge features -3.4% (0.318); augmentation only helps in the low-data regime — hypothesis partly refuted', next:'Move to long-range modelling (E3)'},
+    {id:'E3', name:'Virtual global node', status:'running', start:'2026-07-29', end:'2026-08-08',
+     hypothesis:'H1: a global node compensates for insufficient long-range propagation, lowering MAE by ≥ 8%',
+     expected:'MAE ≤ 0.31 with a clear drop on large molecules', actual:'First 3 seeds at MAE 0.296 ± 0.004 (-12%); hypothesis holds', next:'Add significance test for the large-molecule bucket'},
+    {id:'E4', name:'Attention-based readout', status:'planned', start:'2026-08-10', end:'2026-08-18',
+     hypothesis:'Attention readout beats sum/mean pooling', expected:'A further 3–5% on top of E3'},
+    {id:'E5', name:'Multi-property joint training', status:'planned', start:'2026-08-19', end:'2026-08-25',
+     hypothesis:'Related properties (HOMO/LUMO) regularise the representation', expected:'μ MAE flat or slightly better, faster convergence'},
+    {id:'E6', name:'Comparison against Uni-Mol', status:'blocked', start:'2026-08-05', end:'2026-08-12',
+     hypothesis:'', expected:'A fair comparison against a pretrained 3D model',
+     actual:'', next:'Waiting on the A100 allocation; expected back 08-06'},
+   ], milestones:[
+    {date:'2026-07-20', label:'Baselines reproduced', done:true},
+    {date:'2026-08-25', label:'All improvement experiments complete', done:false},
+    {date:'2026-09-15', label:'Paper draft', done:false},
+    {date:'2026-10-05', label:'Workshop submission deadline', done:false},
+   ],
+   notes:'GPUs: 2×3090 always available in the lab; A100 must be requested weekly.'};
+
+  const demoTex=[
+'\\documentclass{article}',
+'\\title{A Virtual Global Node for Long-Range Interactions in Molecular Property Prediction}',
+'\\author{A. Researcher}',
+'\\begin{document}',
+'\\begin{abstract}',
+'Message-passing graph networks predict molecular properties accurately but propagate information',
+'only over a fixed radius, which limits them on large molecules where long-range electrostatics',
+'matter. We add a single virtual node connected to every atom and show that it recovers most of the',
+'gap on QM9 dipole moments, reducing test MAE from 0.336 to 0.296 Debye at 1.8M parameters.',
+'The gain concentrates on molecules above 20 atoms, exactly where the radius limitation bites.',
+'\\end{abstract}',
+'\\section{Introduction}',
+'Graph neural networks are now standard for molecular property prediction \\cite{gilmer2017,schutt2018}.',
+'Their locality is usually presented as an inductive bias, but for dipole moments it is a limitation.',
+'\\section{Method}',
+'\\subsection{Virtual global node}',
+'We augment the molecular graph with one node adjacent to all atoms, so any pair of atoms is at most',
+'two hops apart. \\todo{state the exact readout used for the global node}',
+'\\subsection{Training setup}',
+'All models use the same split and three seeds \\cite{ramakrishnan2014}.',
+'\\section{Experiments}',
+'\\includegraphics[width=\\textwidth]{fig1_curves}',
+'\\includegraphics[width=\\textwidth]{fig2_error_by_size}',
+'\\subsection{Results}',
+'The global node lowers test MAE by 12 percent relative to the GIN baseline (ref).',
+'\\todo{add the significance test for the large-molecule bucket}',
+'\\section{Conclusion}',
+'A single virtual node is a cheap and effective remedy for limited propagation range.',
+'\\end{document}',
+  ].join('\n');
+  const manuscript=[{
+    venue:'Workshop submission (demo)', status:'drafting', target:'2026-10-05',
+    source:'paper/main.tex', pdf:'', notes:'Demo manuscript — parsed live by the same LaTeX reader used for real projects.',
+    _parsed:parseTex(demoTex)
+  }];
+
+  return { loaded:true, errors:{}, demo:true,
+    meta:{full_name:'demo / molecular property prediction', description:'Predicting molecular dipole moments with GNNs (demo data)',
+          html_url:'#', default_branch:'main', pushed_at:'2026-08-01T16:42:00Z', private:false},
+    branch:'main', commits:commits, commitsDone:true, commitPage:1,
+    claudemd:md, results:results, plan:plan, manuscript:manuscript };
+}
+
+/* ---------------- Projects ---------------- */
 function adoptProjectsFromURL(){
   let raw='';
   try{ raw=new URLSearchParams(location.search).get('repos')||''; }catch(e){ return; }
@@ -1297,8 +1482,7 @@ function adoptProjectsFromURL(){
   });
   if(changed){ try{ localStorage.setItem(LS_CFG, JSON.stringify(config)); }catch(e){} }
 }
-
-let defaultProjects=null; /* 来自部署目录下的 projects.json(可选) */
+let defaultProjects=null; /* optional projects.json next to index.html */
 async function loadDefaults(){
   if(defaultProjects!==null) return;
   defaultProjects=[];
@@ -1310,7 +1494,7 @@ async function loadDefaults(){
         defaultProjects=j.projects.filter(p=>p&&p.owner&&p.repo)
           .map(p=>({owner:String(p.owner), repo:String(p.repo), branch:p.branch?String(p.branch):'', label:p.label?String(p.label):''}));
     }
-  }catch(e){ /* file:// 或无此文件时静默降级 */ }
+  }catch(e){ /* absent or file:// — silently ignore */ }
 }
 function currentProjects(){
   const list=[], seen=new Set();
@@ -1318,24 +1502,21 @@ function currentProjects(){
     const k=pkey(p);
     if(!seen.has(k)){ seen.add(k); list.push(p); }
   });
-  list.push({owner:'__demo__', repo:'', label:'示例项目(演示)'});
+  list.push({owner:DEMO_KEY, repo:'', label:'Demo project'});
   return list;
 }
-function currentP(){
-  return currentProjects().find(p=>pkey(p)===state.project) || currentProjects()[0];
-}
+function currentP(){ return currentProjects().find(p=>pkey(p)===state.project) || currentProjects()[0]; }
 function cacheOf(){ return state.cache[state.project]; }
 
-function setBanner(html, warn){
+/* ---------------- Views ---------------- */
+const view=$('#view');
+function setBanner(msg, warn){
   const b=$('#banner'), inner=$('#bannerInner');
-  if(!html){ b.hidden=true; return; }
+  if(!msg){ b.hidden=true; return; }
   inner.className='inner'+(warn?' warn':'');
-  inner.textContent='';
-  if(typeof html==='string') inner.append(document.createTextNode(html));
-  else inner.append(html);
+  inner.textContent=msg;
   b.hidden=false;
 }
-
 function statusChip(status){
   const st=STATUS_MAP[status]||STATUS_MAP.planned;
   const c=el('span','status-chip');
@@ -1353,6 +1534,24 @@ function typeChip(type){
   c.style.background='color-mix(in srgb, '+t.color+' 13%, transparent)';
   return c;
 }
+function errorCard(what, e){
+  const d=el('div','empty card');
+  d.append(el('div','big','⚠️'));
+  d.append(el('div',null,`Could not load ${what}`));
+  d.append(el('div','muted small', e.kind==='parse'? ('Invalid JSON: '+(e.msg||'')) : errText(e)));
+  return d;
+}
+function guideCard(icon, title, text){
+  const d=el('div','empty card');
+  d.append(el('div','big',icon));
+  const t=el('div',null,title); t.style.fontWeight='700'; t.style.marginBottom='6px';
+  d.append(t);
+  const p=el('div','muted');
+  p.style.maxWidth='580px'; p.style.margin='0 auto'; p.style.textAlign='left';
+  p.textContent=text;
+  d.append(p);
+  return d;
+}
 
 function render(){
   state.chartRegistry=[];
@@ -1360,106 +1559,127 @@ function render(){
   view.textContent='';
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===state.tab));
   const c=cacheOf();
-  /* 顶部横幅 */
-  if(state.project===DEMO_KEY && currentProjects().length===1)
-    setBanner('👋 当前为演示数据。点击右上角 ⚙ 设置,关联你 GitHub 账户下的科研项目仓库。');
+  if(state.project===DEMO_KEY && !config.projects.length && !(defaultProjects||[]).length)
+    setBanner('👋 Showing demo data. Open ⚙ Settings to link your own GitHub research repositories.');
   else if(c&&c.errors&&Object.values(c.errors).some(e=>e&&e.kind==='ratelimit'))
     setBanner('⚠ '+errText(Object.values(c.errors).find(e=>e.kind==='ratelimit')), true);
   else setBanner(null);
 
-  if(!c){ view.append(el('div','empty','加载中…')); return; }
+  if(!c){ view.append(el('div','empty','Loading…')); return; }
   if(c.errors.meta){
     const em=el('div','empty');
     em.append(el('div','big','🚫'));
-    em.append(el('div',null,`无法加载仓库 ${state.project}`));
+    em.append(el('div',null,`Could not load repository ${state.project}`));
     em.append(el('div','muted small', errText(c.errors.meta)));
     const k=c.errors.meta.kind;
     if(k==='notfound'||k==='auth'||k==='forbidden'||k==='ratelimit'){
-      const b=el('button','btn primary', config.token?'检查令牌设置':'填写访问令牌');
+      const b=el('button','btn primary', config.token?'Check token settings':'Add an access token');
       b.style.marginTop='16px';
       b.addEventListener('click',()=>$('#btnSettings').click());
       em.append(b);
     }
     view.append(em); return;
   }
-  ({overview:renderOverview, commits:renderCommits, results:renderResults,
-    methods:renderMethods, plan:renderPlan}[state.tab]||renderOverview)();
+  ({overview:renderOverview, commits:renderCommits, results:renderResults, methods:renderMethods,
+    plan:renderPlan, manuscript:renderManuscript}[state.tab]||renderOverview)();
 }
 
-/* ---- 概览 ---- */
+/* ---- Overview ---- */
 function renderOverview(){
   const projs=currentProjects();
   const wrap=el('div');
-  const isDemoOnly=projs.length===1;
+  const soloDemo=projs.length===1;
   projs.forEach(p=>{
     const key=pkey(p);
-    if(isDemoOnly&&key!==DEMO_KEY) return;
+    if(soloDemo&&key!==DEMO_KEY) return;
     const c=state.cache[key];
     const card=el('div','card proj-card');
+    card.style.cursor='pointer';
     card.addEventListener('click',()=>{ switchProject(key); switchTab('commits'); });
-    const title=el('div','proj-title');
-    title.append(document.createTextNode(p.label||key));
-    if(c&&c.meta&&c.meta.private) title.append(el('span','chip','🔒 私有'));
-    if(key===DEMO_KEY) title.append(el('span','chip','演示'));
+    const title=el('div',null,p.label||key);
+    title.style.fontSize='15.5px'; title.style.fontWeight='700';
+    title.style.display='flex'; title.style.alignItems='center'; title.style.gap='8px'; title.style.flexWrap='wrap';
+    if(c&&c.meta&&c.meta.private) title.append(el('span','chip','🔒 private'));
+    if(key===DEMO_KEY) title.append(el('span','chip','demo'));
     card.append(title);
-    if(!c){ card.append(el('div','muted small','加载中…')); wrap.append(card); loadProject(p).then(()=>{ if(state.tab==='overview') render(); }); return; }
+    if(!c){
+      card.append(el('div','muted small','Loading…'));
+      wrap.append(card);
+      loadProject(p).then(()=>{ if(state.tab==='overview') render(); });
+      return;
+    }
     if(c.errors.meta){ card.append(el('div','err-inline',errText(c.errors.meta))); wrap.append(card); return; }
-    if(c.meta.description) card.append(el('div','proj-desc',c.meta.description));
-    const stats=el('div','proj-stats');
-    /* 提交活跃 */
-    const spark=el('span'); spark.append(sparkline(c.commits));
-    stats.append(spark);
-    const cm=el('span'); cm.append(el('b',null,String(c.commits.length)+(c.commitsDone?'':'+')), document.createTextNode(' 次提交'));
+    if(c.meta.description){
+      const d=el('div','ink2',c.meta.description);
+      d.style.fontSize='13px'; d.style.margin='3px 0 10px';
+      card.append(d);
+    }
+    const stats=el('div');
+    stats.style.display='flex'; stats.style.gap='18px'; stats.style.flexWrap='wrap';
+    stats.style.fontSize='12.5px'; stats.style.alignItems='center'; stats.style.color='var(--ink2)';
+    const spark=el('span'); spark.append(sparkline(c.commits)); stats.append(spark);
+    const cm=el('span');
+    cm.append(el('b',null,String(c.commits.length)+(c.commitsDone?'':'+')), document.createTextNode(' commits'));
     stats.append(cm);
-    /* 实验状态计数 */
     if(c.plan&&Array.isArray(c.plan.experiments)){
       const byS={};
       c.plan.experiments.forEach(e=>{ byS[e.status]=(byS[e.status]||0)+1; });
-      [['running','进行中'],['planned','计划中'],['done','已完成'],['blocked','受阻']].forEach(([k,lb])=>{
+      [['running','running'],['planned','planned'],['done','done'],['blocked','blocked']].forEach(([k,lb])=>{
         if(byS[k]){
           const s=el('span');
-          s.append(el('b',null,String(byS[k])),document.createTextNode(' '+lb));
+          s.append(el('b',null,String(byS[k])), document.createTextNode(' '+lb));
           if(k==='blocked') s.style.color='var(--crit)';
           stats.append(s);
         }
       });
     }
-    const pushed=el('span','muted','更新于 '+relTime(c.meta.pushed_at));
-    stats.append(pushed);
+    if(c.manuscript&&c.manuscript.length){
+      const m=c.manuscript[0];
+      const st=MS_STATUS[m.status]||MS_STATUS.drafting;
+      const s=el('span','chip','📝 '+st.label);
+      s.style.color=st.color;
+      stats.append(s);
+    }
+    stats.append(el('span','muted','updated '+relTime(c.meta.pushed_at)));
     card.append(stats);
-    /* 最近结果 / 最近提交 */
-    const latest=el('div','latest-line');
+
+    const latest=el('div');
+    latest.style.marginTop='10px'; latest.style.paddingTop='10px';
+    latest.style.borderTop='1px solid var(--border2)';
+    latest.style.fontSize='12.5px'; latest.style.color='var(--ink2)';
     const rlist=(c.results&&c.results.results)||[];
     if(rlist.length){
       const r=rlist.slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')))[0];
-      latest.append(el('span','lb','最新结果 · '+(r.date||'')+' '));
-      latest.append(document.createTextNode((r.title?r.title+':':'')+(r.summary||'')));
+      const lb=el('span','muted','Latest result · '+(r.date||'')+' ');
+      lb.style.fontWeight='600'; lb.style.fontSize='11.5px';
+      latest.append(lb, document.createTextNode((r.title?r.title+': ':'')+(r.summary||'')));
     }else if(c.commits.length){
-      const cm0=c.commits[0];
-      latest.append(el('span','lb','最新提交 · '));
-      latest.append(document.createTextNode(cm0.commit.message.split('\n')[0]));
+      const lb=el('span','muted','Latest commit · ');
+      lb.style.fontWeight='600'; lb.style.fontSize='11.5px';
+      latest.append(lb, document.createTextNode(c.commits[0].commit.message.split('\n')[0]));
     }
     if(latest.childNodes.length) card.append(latest);
     wrap.append(card);
   });
-  if(!isDemoOnly){
-    const hint=el('div','muted small');
+  if(!soloDemo){
+    const hint=el('div','muted small','Click a project to open it · add or remove projects in ⚙ Settings');
     hint.style.textAlign='center';
-    hint.append(document.createTextNode('点击项目卡片查看详情 · 在 ⚙ 设置中增删项目'));
     wrap.append(hint);
   }
   view.append(wrap);
 }
 
-/* ---- 更新记录 ---- */
+/* ---- Commits ---- */
 function renderCommits(){
   const c=cacheOf();
-  if(c.errors.commits){ view.append(errorCard('提交记录', c.errors.commits)); return; }
-  if(!c.commits.length){ view.append(emptyCard('📭','此分支还没有提交记录')); return; }
-
-  /* 筛选行 */
+  if(c.errors.commits){ view.append(errorCard('commit history', c.errors.commits)); return; }
+  if(!c.commits.length){
+    const d=el('div','empty card');
+    d.append(el('div','big','📭'), el('div',null,'No commits on this branch yet'));
+    view.append(d); return;
+  }
   const fl=el('div','filters');
-  const search=el('input'); search.type='search'; search.placeholder='搜索提交信息…'; search.value=state.search;
+  const search=el('input'); search.type='search'; search.placeholder='Search commit messages…'; search.value=state.search;
   search.addEventListener('input',debounce(()=>{ state.search=search.value; drawList(); },200));
   fl.append(search);
   const freq=new Map();
@@ -1476,8 +1696,7 @@ function renderCommits(){
   });
   view.append(fl);
 
-  const card=el('div','card');
-  const listBox=el('div');
+  const card=el('div','card'), listBox=el('div');
   card.append(listBox);
   view.append(card);
 
@@ -1490,8 +1709,7 @@ function renderCommits(){
       if(kw&&!cm.commit.message.toLowerCase().includes(kw)) return false;
       return true;
     });
-    if(!filtered.length){ listBox.append(el('div','empty','没有匹配的提交')); return; }
-    /* 按日分组 */
+    if(!filtered.length){ listBox.append(el('div','empty','No matching commits')); return; }
     const groups=new Map();
     filtered.forEach(cm=>{
       const day=isoDay(parseDate(cm.commit.author.date));
@@ -1512,7 +1730,8 @@ function renderCommits(){
         row.append(rail);
         const body=el('div','body');
         const titleRow=el('div');
-        titleRow.style.display='flex'; titleRow.style.gap='8px'; titleRow.style.alignItems='baseline'; titleRow.style.flexWrap='wrap';
+        titleRow.style.display='flex'; titleRow.style.gap='8px';
+        titleRow.style.alignItems='baseline'; titleRow.style.flexWrap='wrap';
         const tc=typeChip(pt.type);
         if(tc) titleRow.append(tc);
         titleRow.append(el('span','title',pt.title));
@@ -1530,10 +1749,10 @@ function renderCommits(){
         }else meta.append(el('span','sha',cm.sha.slice(0,7)));
         const rest=cm.commit.message.split('\n').slice(1).join('\n').trim();
         if(rest){
-          const ex=el('button','expander','详情 ▾');
+          const ex=el('button','expander','details ▾');
           ex.addEventListener('click',()=>{
             row.classList.toggle('open');
-            ex.textContent=row.classList.contains('open')?'收起 ▴':'详情 ▾';
+            ex.textContent=row.classList.contains('open')?'hide ▴':'details ▾';
           });
           meta.append(ex);
         }
@@ -1545,9 +1764,9 @@ function renderCommits(){
       listBox.append(g);
     }
     if(!c.commitsDone){
-      const more=el('button','loadmore','加载更早的提交');
+      const more=el('button','loadmore','Load earlier commits');
       more.addEventListener('click',async ()=>{
-        more.textContent='加载中…'; more.disabled=true;
+        more.textContent='Loading…'; more.disabled=true;
         await loadMoreCommits(currentP());
         drawList();
       });
@@ -1557,7 +1776,7 @@ function renderCommits(){
   drawList();
 }
 
-/* ---- 实验结果 ---- */
+/* ---- Results ---- */
 function renderResults(){
   const c=cacheOf();
   if(c.errors.results){
@@ -1567,8 +1786,8 @@ function renderResults(){
   }
   const list=(c.results&&c.results.results)||[];
   if(!list.length){
-    view.append(guideCard('📊','还没有结果记录',
-      '在仓库中创建 research/results.json 记录实验结果,仪表盘会自动渲染图表。参考模板 templates/results.example.json,或让 Claude Code 按 CLAUDE.md 规范在每次实验后自动更新。'));
+    view.append(guideCard('📊','No results recorded yet',
+      'Create research/results.json in the repository and the dashboard will render its charts. See templates/results.example.json, or let Claude Code maintain it after each experiment following the conventions in CLAUDE.md.'));
     return;
   }
   const sorted=list.slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
@@ -1576,11 +1795,12 @@ function renderResults(){
     const card=el('div','card');
     const head=el('div','cardhead');
     if(r.id) head.append(el('span','exp-id',r.id));
-    head.append(el('h3',null,r.title||'(未命名结果)'));
-    if(r.experiment) head.append(el('span','chip','实验 '+r.experiment));
+    head.append(el('h3',null,r.title||'(untitled result)'));
+    if(r.experiment) head.append(el('span','chip','exp '+r.experiment));
     (r.tags||[]).forEach(t=>head.append(el('span','chip',t)));
     head.append(el('span','spacer'));
-    if(r.date) head.append(el('span','muted small',fmtDate(r.date,true)));
+    const dateEl=r.date? el('span','muted small',fmtDate(r.date,true)) : null;
+    if(dateEl) head.append(dateEl);
     card.append(head);
     if(r.summary) card.append(el('div','result-summary',r.summary));
     if(Array.isArray(r.metrics)&&r.metrics.length){
@@ -1604,10 +1824,9 @@ function renderResults(){
     }
     if(r.chart&&Array.isArray(r.chart.series)){
       const cw=chartCard(r.chart);
-      /* 数据表切换按钮放在标题行 */
-      const tb=el('button','tbl-toggle','数据表');
-      tb.addEventListener('click',()=>{ tb.textContent=cw._toggleTable()?'收起表格':'数据表'; });
-      head.insertBefore(tb, head.querySelector('.muted'));
+      const tb=el('button','tbl-toggle','Data table');
+      tb.addEventListener('click',()=>{ tb.textContent=cw._toggleTable()?'Hide table':'Data table'; });
+      if(dateEl) head.insertBefore(tb, dateEl); else head.append(tb);
       card.append(cw);
     }
     if(Array.isArray(r.images)&&r.images.length&&!c.demo){
@@ -1616,7 +1835,7 @@ function renderResults(){
         const fig=el('figure');
         const img=el('img'); img.alt=pth;
         repoImageURL(state.project, c.branch, pth).then(u=>{ img.src=u; })
-          .catch(()=>{ fig.append(el('div','muted small','⚠ 无法加载图片 '+pth)); img.remove(); });
+          .catch(()=>{ fig.append(el('div','muted small','⚠ could not load image '+pth)); img.remove(); });
         fig.append(img, el('figcaption',null,pth));
         ib.append(fig);
       });
@@ -1627,20 +1846,19 @@ function renderResults(){
   });
 }
 
-/* ---- 研究方法(CLAUDE.md) ---- */
+/* ---- Methods (CLAUDE.md) ---- */
 function renderMethods(){
   const c=cacheOf();
   if(c.errors.claudemd){ view.append(errorCard('CLAUDE.md', c.errors.claudemd)); return; }
   if(!c.claudemd){
-    view.append(guideCard('📘','此仓库还没有 CLAUDE.md',
-      '在仓库根目录创建 CLAUDE.md,写明研究问题、方法、实验规范等。可直接使用本平台 templates/CLAUDE-template.md 模板——它同时也是 Claude Code 的项目说明,一份文件两用。'));
+    view.append(guideCard('📘','This repository has no CLAUDE.md',
+      'Add CLAUDE.md at the repository root describing the research questions, method and logging conventions. templates/CLAUDE-template.md works as-is — it doubles as the project brief for Claude Code and as the source for this page.'));
     return;
   }
   const {html, toc}=mdRender(c.claudemd);
   const layout=el('div','methods-layout');
-  /* 目录 */
   const tocBox=el('nav','toc');
-  tocBox.append(el('div','toc-h','目录'));
+  tocBox.append(el('div','toc-h','Contents'));
   toc.forEach(t=>{
     const a=el('a', t.lv===3?'l3':'', t.txt);
     a.href='#'+t.id;
@@ -1656,27 +1874,26 @@ function renderMethods(){
   if(c.meta&&c.meta.html_url&&c.meta.html_url!=='#'){
     const src=el('div','small');
     src.style.textAlign='right';
-    const a=el('a',null,'在 GitHub 查看原文 ↗');
+    const a=el('a',null,'View source on GitHub ↗');
     a.href=c.meta.html_url+'/blob/'+c.branch+'/CLAUDE.md'; a.target='_blank'; a.rel='noopener';
     src.append(a);
     card.append(src);
   }
   const art=el('article','md');
   art.innerHTML=html;
-  /* 相对路径图片 → 仓库内容 */
   if(!c.demo) art.querySelectorAll('img[data-mdimg]').forEach(img=>{
     const src=img.getAttribute('src');
     if(/^(https?:|data:)/i.test(src)) return;
     const clean=src.replace(/^\.?\//,'');
     img.removeAttribute('src');
-    repoImageURL(state.project, c.branch, clean).then(u=>{ img.src=u; }).catch(()=>{ img.alt='(无法加载 '+clean+')'; });
+    repoImageURL(state.project, c.branch, clean).then(u=>{ img.src=u; }).catch(()=>{ img.alt='(could not load '+clean+')'; });
   });
   card.append(art);
   layout.append(card);
   view.append(layout);
 }
 
-/* ---- 实验计划 ---- */
+/* ---- Plan ---- */
 function renderPlan(){
   const c=cacheOf();
   if(c.errors.plan){
@@ -1686,14 +1903,13 @@ function renderPlan(){
   }
   const plan=c.plan;
   if(!plan||!Array.isArray(plan.experiments)||!plan.experiments.length){
-    view.append(guideCard('🗓','还没有实验计划',
-      '在仓库中创建 research/plan.json 记录实验安排、预期结果与时间线。参考模板 templates/plan.example.json。'));
+    view.append(guideCard('🗓','No experiment plan yet',
+      'Create research/plan.json in the repository to record experiments, hypotheses, expected results and the timeline. See templates/plan.example.json.'));
     return;
   }
   const exps=plan.experiments;
-  /* 状态统计块 */
   const tiles=el('div','tiles');
-  [['running','进行中'],['planned','计划中'],['done','已完成'],['blocked','受阻']].forEach(([k,lb])=>{
+  [['running','Running'],['planned','Planned'],['done','Done'],['blocked','Blocked']].forEach(([k,lb])=>{
     const n=exps.filter(e=>e.status===k).length;
     const t=el('div','tile');
     t.append(el('div','lbl',lb));
@@ -1704,27 +1920,25 @@ function renderPlan(){
   });
   view.append(tiles);
 
-  /* 甘特时间线 */
   const gcard=el('div','card');
   const gh1=el('div','cardhead');
-  gh1.append(el('h3',null,'时间线'));
+  gh1.append(el('h3',null,'Timeline'));
   gh1.append(el('span','spacer'));
-  gh1.append(el('span','muted small','◆ 里程碑 · 竖线为今天'));
+  gh1.append(el('span','muted small','◆ milestone · vertical line marks today'));
   gcard.append(gh1);
   const ghost=el('div');
   gcard.append(ghost);
   view.append(gcard);
   registerChart(ghost, ()=>renderGantt(ghost, exps, plan.milestones||[]));
 
-  /* 里程碑列表 */
   if(Array.isArray(plan.milestones)&&plan.milestones.length){
     const mc=el('div','card');
-    mc.append(el('h3',null,'里程碑'));
+    mc.append(el('h3',null,'Milestones'));
     const ml=el('div','milestones');
     plan.milestones.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))).forEach(m=>{
       const row=el('div','ms'+(m.done?' done':''));
       row.append(el('span','msmark'));
-      row.append(el('span','msdate',m.date||''));
+      row.append(el('span','msdate',m.date?fmtDate(m.date,true):''));
       row.append(el('span',null,m.label||''));
       ml.append(row);
     });
@@ -1732,7 +1946,6 @@ function renderPlan(){
     view.append(mc);
   }
 
-  /* 实验明细(进行中 → 受阻 → 计划中 → 已完成) */
   const order={running:0, blocked:1, planned:2, done:3};
   const sorted=exps.slice().sort((a,b)=>(order[a.status]??2)-(order[b.status]??2)||String(a.start||'').localeCompare(String(b.start||'')));
   const listCard=el('div');
@@ -1740,9 +1953,9 @@ function renderPlan(){
     const card=el('div','exp-card');
     const head=el('div','exp-head');
     if(e.id) head.append(el('span','exp-id',e.id));
-    head.append(el('span','name',e.name||'(未命名实验)'));
+    head.append(el('span','name',e.name||'(untitled experiment)'));
     head.append(statusChip(e.status));
-    if(e.priority==='high') head.append(el('span','prio-high','⬆ 高优先级'));
+    if(e.priority==='high') head.append(el('span','prio-high','⬆ high priority'));
     if(e.start||e.end) head.append(el('span','exp-dates',(e.start||'?')+' → '+(e.end||'?')));
     card.append(head);
     const fields=el('div','exp-fields');
@@ -1752,49 +1965,187 @@ function renderPlan(){
       f.append(el('div','flbl',lbl), el('div','fval',val));
       fields.append(f);
     };
-    addF('假设', e.hypothesis, true);
-    addF('预期结果', e.expected);
-    addF('实际结果', e.actual);
-    addF('下一步', e.next, true);
+    addF('Hypothesis', e.hypothesis, true);
+    addF('Expected', e.expected);
+    addF('Actual', e.actual);
+    addF('Next', e.next, true);
     if(fields.childNodes.length) card.append(fields);
     listCard.append(card);
   });
   view.append(listCard);
   if(plan.notes){
     const nc=el('div','card');
-    nc.append(el('h3',null,'备注'));
+    nc.append(el('h3',null,'Notes'));
     nc.append(el('div','result-notes',plan.notes));
     view.append(nc);
   }
 }
 
-/* ---- 通用卡片 ---- */
-function errorCard(what, e){
-  const d=el('div','empty card');
-  d.append(el('div','big','⚠️'));
-  d.append(el('div',null,`加载 ${what} 失败`));
-  d.append(el('div','muted small', e.kind==='parse'? ('JSON 解析失败:'+(e.msg||'')) : errText(e)));
-  return d;
-}
-function emptyCard(icon, text){
-  const d=el('div','empty card');
-  d.append(el('div','big',icon));
-  d.append(el('div',null,text));
-  return d;
-}
-function guideCard(icon, title, text){
-  const d=el('div','empty card');
-  d.append(el('div','big',icon));
-  const t=el('div',null,title); t.style.fontWeight='700'; t.style.marginBottom='6px';
-  d.append(t);
-  const p=el('div','muted');
-  p.style.maxWidth='560px'; p.style.margin='0 auto'; p.style.textAlign='left';
-  p.append(document.createTextNode(text));
-  d.append(p);
-  return d;
+/* ---- Manuscript ---- */
+function renderManuscript(){
+  const c=cacheOf();
+  if(c.errors.manuscript){
+    view.append(errorCard('research/manuscript.json',
+      c.errors.manuscript.kind==='parse'? {kind:'parse', msg:c.parseMsgMs} : c.errors.manuscript));
+    return;
+  }
+  const list=c.manuscript||[];
+  if(!list.length){
+    view.append(guideCard('📝','No manuscript registered yet',
+      'Create research/manuscript.json pointing at the paper source, e.g. {"venue":"CVPR 2027","status":"drafting","target":"2026-11-14","source":"paper/main.tex","pdf":"paper/main.pdf"}. The dashboard reads the LaTeX (or Markdown) live and shows the title, abstract, section outline with word counts, figures, references and every open \\todo{} — no compilation needed.'));
+    return;
+  }
+  list.forEach(ms=>{
+    const P=ms._parsed;
+    const head=el('div','card');
+    const title=el('div','ms-title', ms.title || (P&&P.title) || '(untitled manuscript)');
+    head.append(title);
+    const authors=(P&&P.authors&&P.authors.length)? P.authors.join(', ') : (ms.authors||'');
+    if(authors) head.append(el('div','ms-authors',authors));
+
+    const meta=el('div','ms-meta');
+    if(ms.venue) meta.append(el('span','chip','🏛 '+ms.venue));
+    const st=MS_STATUS[ms.status]||MS_STATUS.drafting;
+    const stc=el('span','status-chip');
+    const dot=el('span','status-dot'); dot.style.background=st.color;
+    stc.append(dot, document.createTextNode(st.label));
+    stc.style.color=st.color;
+    meta.append(stc);
+    if(ms.target){
+      const d=parseDate(ms.target);
+      if(d){
+        const today=new Date(); today.setHours(0,0,0,0);
+        const days=daysBetween(today,d);
+        const cd=el('span','countdown'+(days<0?' over':(days<=14?' near':'')));
+        cd.textContent = days<0 ? `${-days} days past target (${fmtDate(d,true)})`
+                       : days===0 ? `target is today (${fmtDate(d,true)})`
+                       : `${days} days to target · ${fmtDate(d,true)}`;
+        meta.append(cd);
+      }
+    }
+    head.append(meta);
+
+    const links=el('div','ms-links');
+    const base=c.meta&&c.meta.html_url&&c.meta.html_url!=='#'? c.meta.html_url : '';
+    if(base&&ms.source){
+      const a=el('a',null,'Source on GitHub ↗');
+      a.href=`${base}/blob/${c.branch}/${ms.source}`; a.target='_blank'; a.rel='noopener';
+      links.append(a);
+    }
+    if(base&&ms.pdf){
+      const a=el('a',null,'Compiled PDF ↗');
+      a.href=`${base}/blob/${c.branch}/${ms.pdf}`; a.target='_blank'; a.rel='noopener';
+      links.append(a);
+    }
+    if(links.childNodes.length) head.append(links);
+    view.append(head);
+
+    if(ms._err){
+      view.append(errorCard('manuscript source '+(ms.source||''), ms._err));
+    }
+    if(ms.notes){
+      const n=el('div','card');
+      n.append(el('div','result-notes',ms.notes));
+      view.append(n);
+    }
+    if(!P) return;
+
+    const tiles=el('div','tiles');
+    const tile=(lbl,val,warn)=>{
+      const t=el('div','tile');
+      t.append(el('div','lbl',lbl));
+      const v=el('div','val',val);
+      if(warn) v.style.color='var(--serious)';
+      t.append(v);
+      tiles.append(t);
+    };
+    tile('Words (approx.)', fmtNum(P.words));
+    tile('Sections', String(P.sections.filter(s=>s.level===1).length));
+    tile('Figures', String(P.figures.length));
+    if(P.tables) tile('Tables', String(P.tables));
+    tile('References', String(P.cites.size));
+    tile('Open TODOs', String(P.todos.length), P.todos.length>0);
+    view.append(tiles);
+
+    if(P.todos.length){
+      const tc=el('div','card');
+      const th=el('div','cardhead');
+      th.append(el('h3',null,'Open TODOs'));
+      th.append(el('span','spacer'));
+      th.append(el('span','muted small','unresolved \\todo{} markers in the source'));
+      tc.append(th);
+      P.todos.forEach(t=>{
+        const item=el('div','todo-item');
+        if(t.section) item.append(el('div','todo-sec',t.section));
+        if(t.text) item.append(el('div',null,t.text));
+        else if(t.context) item.append(el('div','ctx','…'+t.context));
+        else item.append(el('div','ctx','(empty marker — no description given)'));
+        if(t.text&&t.context) item.append(el('div','ctx','…'+t.context));
+        tc.append(item);
+      });
+      view.append(tc);
+    }
+
+    if(P.abstract){
+      const ac=el('div','card');
+      ac.append(el('h3',null,'Abstract'));
+      ac.append(el('div','abstract',P.abstract));
+      if(P.keywords){
+        const k=el('div','muted small','Keywords: '+P.keywords);
+        k.style.marginTop='10px';
+        ac.append(k);
+      }
+      view.append(ac);
+    }
+
+    if(P.sections.length){
+      const oc=el('div','card');
+      const oh=el('div','cardhead');
+      oh.append(el('h3',null,'Outline'));
+      oh.append(el('span','spacer'));
+      oh.append(el('span','muted small','word counts are approximate'));
+      oc.append(oh);
+      /* Scale each row against the widest row at its own level, so rolled-up
+         parents do not flatten every subsection bar */
+      const maxAt={};
+      P.sections.forEach(s=>{ const w=s.total!=null?s.total:s.words; maxAt[s.level]=Math.max(maxAt[s.level]||1,w); });
+      P.sections.forEach(s=>{
+        const w=s.total!=null?s.total:s.words;
+        const row=el('div','outline-row'+(s.level>=2?' lv2':''));
+        const nm=el('div','outline-name', (s.level>=2?'· ':'')+s.title);
+        if(s.todos){
+          const b=el('span','chip','⚠ '+s.todos);
+          b.style.marginLeft='8px';
+          nm.append(b);
+        }
+        row.append(nm, el('div','outline-words',fmtNum(w)));
+        oc.append(row);
+        const bar=el('div','outline-bar');
+        const fill=el('span');
+        fill.style.width=Math.max(1,(w/maxAt[s.level])*100)+'%';
+        if(s.level>=2) fill.style.opacity='.55';
+        bar.append(fill);
+        oc.append(bar);
+      });
+      view.append(oc);
+    }
+
+    if(P.figures.length){
+      const fc=el('div','card');
+      fc.append(el('h3',null,'Figures referenced by the source'));
+      const fl=el('div','fig-list');
+      P.figures.forEach(f=>{
+        const it=el('div','fig-item');
+        it.append(el('b',null,f));
+        fl.append(it);
+      });
+      fc.append(fl);
+      view.append(fc);
+    }
+  });
 }
 
-/* ---------------- 导航与初始化 ---------------- */
+/* ---------------- Navigation & init ---------------- */
 function buildTabs(){
   const nav=$('#tabs');
   nav.textContent='';
@@ -1821,7 +2172,7 @@ async function switchProject(key){
   const p=currentP();
   if(!state.cache[key]||!state.cache[key].loaded){
     view.textContent='';
-    view.append(el('div','empty','加载 '+ (p.label||key) +' …'));
+    view.append(el('div','empty','Loading '+(p.label||key)+'…'));
     await loadProject(p);
   }
   render();
@@ -1842,7 +2193,6 @@ $('#btnRefresh').addEventListener('click',async ()=>{
   render();
 });
 
-/* 主题 */
 function applyTheme(t){
   if(t==='light'||t==='dark') document.documentElement.dataset.theme=t;
   else delete document.documentElement.dataset.theme;
@@ -1857,7 +2207,6 @@ $('#btnTheme').addEventListener('click',()=>{
 });
 applyTheme(localStorage.getItem(LS_THEME)||'');
 
-/* 设置对话框 */
 const dlg=$('#settingsDlg');
 $('#btnSettings').addEventListener('click',()=>{
   $('#setToken').value=config.token||'';
@@ -1868,7 +2217,7 @@ $('#btnSettings').addEventListener('click',()=>{
 });
 $('#btnCancel').addEventListener('click',()=>dlg.close());
 $('#btnClearAll').addEventListener('click',()=>{
-  if(!confirm('清除令牌与全部项目配置?')) return;
+  if(!confirm('Clear the stored token and all project settings?')) return;
   localStorage.removeItem(LS_CFG);
   config={token:'', projects:[]};
   state.cache={};
@@ -1883,17 +2232,15 @@ $('#btnLoadRepos').addEventListener('click',async ()=>{
   if(!u) return;
   const listBox=$('#repoList');
   listBox.style.display='block';
-  listBox.textContent='加载中…';
-  /* 有令牌时用 /user/repos 可包含私有仓库 */
+  listBox.textContent='Loading…';
   try{
     const saveTok=config.token;
     config.token=$('#setToken').value.trim()||config.token;
     let repos;
-    try{
-      repos=await gh(`/users/${encodeURIComponent(u)}/repos?sort=pushed&per_page=40`);
-    } finally { config.token=saveTok; }
+    try{ repos=await gh(`/users/${encodeURIComponent(u)}/repos?sort=pushed&per_page=40`); }
+    finally{ config.token=saveTok; }
     listBox.textContent='';
-    if(!repos.length){ listBox.textContent='(没有找到公开仓库)'; return; }
+    if(!repos.length){ listBox.textContent='(no public repositories found)'; return; }
     repos.forEach(r=>{
       const lb=el('label');
       const cb=el('input'); cb.type='checkbox'; cb.value=r.full_name;
@@ -1919,20 +2266,19 @@ $('#btnSave').addEventListener('click',()=>{
   const projects=[];
   for(const ln of lines){
     const p=parseRepoLine(ln);
-    if(!p){ errBox.textContent='格式错误:「'+ln+'」应为 owner/repo 或 owner/repo#分支'; errBox.hidden=false; return; }
+    if(!p){ errBox.textContent='Invalid line "'+ln+'" — expected owner/repo or owner/repo#branch'; errBox.hidden=false; return; }
     projects.push(p);
   }
   config.token=$('#setToken').value.trim();
   config.projects=projects;
   try{ localStorage.setItem(LS_CFG, JSON.stringify(config)); }
-  catch(e){ errBox.textContent='无法保存到 localStorage'; errBox.hidden=false; return; }
+  catch(e){ errBox.textContent='Could not write to localStorage'; errBox.hidden=false; return; }
   state.cache={};
   dlg.close();
   state.project=projects.length?pkey(projects[0]):null;
   init();
 });
 
-/* 初始化 */
 async function init(){
   buildTabs();
   adoptProjectsFromURL();
@@ -1945,9 +2291,8 @@ async function init(){
   const h=location.hash.replace('#','');
   if(TABS.some(t=>t[0]===h)) state.tab=h;
   view.textContent='';
-  view.append(el('div','empty','加载中…'));
+  view.append(el('div','empty','Loading…'));
   await loadProject(currentP());
-  /* 概览需要其余项目,后台并行加载 */
   if(state.tab==='overview') currentProjects().forEach(p=>{ if(pkey(p)!==state.project) loadProject(p).catch(()=>{}); });
   render();
 }

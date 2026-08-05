@@ -1,0 +1,8 @@
+{
+  "venue": "Pattern Recognition (Elsevier)",
+  "status": "drafting",
+  "target": "2026-08-31",
+  "source": "paper/main.tex",
+  "pdf": "paper/main.pdf",
+  "notes": "How the paper is framed, what is still missing, and the fallback plan if the headline result does not land."
+}

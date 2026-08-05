@@ -1,121 +1,139 @@
-# {{项目名称}}
+# {{Project name}}
 
-> {{一句话描述研究目标,例:用图神经网络在 QM9 数据集上预测分子偶极矩,目标测试 MAE < 0.30 D。}}
+> {{One sentence: what this project investigates and the target metric. e.g. "Predicting molecular dipole moments on QM9 with GNNs; target test MAE < 0.30 D."}}
 
 <!--
-  使用说明(用后删除本注释):
-  1. 将本文件复制到科研项目仓库根目录,命名为 CLAUDE.md
-  2. 替换所有 {{占位符}};不适用的小节可删除,但保留「实验与记录规范」「research 数据文件说明」两节
-  3. 同时复制 research/plan.json 与 research/results.json 初始文件(见平台 templates/ 目录)
-  4. 本文件双重用途:Claude Code 的项目工作说明 + 科研记录平台「研究方法」页的渲染源
+  How to use this file (delete this comment afterwards):
+  1. Copy to the root of the research repository as CLAUDE.md
+  2. Replace every {{placeholder}}; delete sections that do not apply, but KEEP
+     "Logging conventions" and "research/ data files"
+  3. Copy the starter research/*.json files from this platform's templates/ directory
+  4. This file has two jobs: it is the working brief for Claude Code AND the source
+     rendered on the dashboard's Methods tab
 -->
 
-## 项目概述
+## Project overview
 
-- **研究领域**:{{领域}}
-- **背景**:{{为什么做这个研究,现有工作的不足}}
-- **当前阶段**:{{例:基线复现 / 方法改进 / 论文撰写}}
-- **时间范围**:{{YYYY-MM 至 YYYY-MM}}
+- **Field**: {{area}}
+- **Background**: {{why this problem, what existing work misses}}
+- **Current stage**: {{e.g. baseline reproduction / method improvement / writing}}
+- **Timeframe**: {{YYYY-MM to YYYY-MM}}
 
-## 研究问题与假设
+## Research questions and hypotheses
 
-- **RQ1**:{{研究问题 1}}
-  - **H1**:{{可检验的假设,含预期效果量,例:方法 X 使指标 Y 至少提升 8%}}
-- **RQ2**:{{研究问题 2}}
+- **RQ1**: {{question}}
+  - **H1**: {{testable hypothesis with an expected effect size, e.g. "method X improves metric Y by at least 8%"}}
+- **RQ2**: {{question}}
 
-## 研究方法
+## Method
 
-### 总体思路
+### Overall approach
 
-{{方法论概述:采用什么框架/流程,如何控制变量,如何保证结论可靠}}
+{{How the method works, how variables are controlled, what makes the conclusion trustworthy}}
 
-### 实验设计
+### Experimental design
 
-1. {{数据划分方式与随机种子,例:训练/验证/测试 = 8/1/1,种子 42}}
-2. {{重复次数与报告口径,例:每组实验 3 个种子,报告均值 ± 标准差}}
-3. {{停止准则/超参搜索范围等}}
+1. {{Data splits and seeds, e.g. train/val/test = 8/1/1, seed 42}}
+2. {{Repetitions and reporting, e.g. 3 seeds per configuration, mean ± sd}}
+3. {{Stopping criteria, hyper-parameter ranges}}
 
-### 数据
+### Data
 
-- **来源**:{{数据集名称、版本、获取方式}}
-- **规模**:{{样本量、特征维度}}
-- **预处理**:{{脚本路径与关键步骤,例:`scripts/prepare.py`,缓存于 `data/processed/`}}
+- **Source**: {{dataset name, version, how to obtain it}}
+- **Size**: {{samples, dimensions}}
+- **Preprocessing**: {{script path and key steps}}
 
-### 分析与评估
+### Analysis and evaluation
 
-- **主指标**:{{例:测试集 MAE}};**辅助指标**:{{例:R²、分桶误差}}
-- **统计检验**:{{例:配对 t 检验,p < 0.05}}
-- **基线**:{{与哪些方法对比}}
+- **Primary metric**: {{e.g. test MAE}}; **secondary**: {{e.g. R², bucketed error}}
+- **Significance**: {{e.g. paired t-test, p < 0.05}}
+- **Baselines**: {{what this is compared against}}
 
-## 环境与复现
+## Environment and reproduction
 
 ```bash
-{{环境配置与典型运行命令,例:
+{{setup and a representative run, e.g.
 conda env create -f environment.yml
 python train.py --config configs/base.yaml --seed 42}}
 ```
 
-- **硬件**:{{例:2×RTX 3090;大实验需申请 A100}}
-- **关键依赖版本**:{{例:torch 2.4, pyg 2.6}}
+- **Hardware**: {{e.g. 2×RTX 3090; large runs need a cluster allocation}}
+- **Key versions**: {{e.g. torch 2.4, pyg 2.6}}
 
-## 目录结构
+## Repository layout
 
 ```
-{{例:
-configs/    实验配置
-scripts/    数据与工具脚本
-src/        模型与训练代码
-research/   plan.json / results.json(平台读取,见下文)
-figures/    结果图片(平台展示)
+{{e.g.
+configs/    experiment configs
+scripts/    data and utility scripts
+src/        model and training code
+research/   plan.json / results.json / manuscript.json (read by the dashboard)
+figures/    result images
+paper/      manuscript source
 }}
 ```
 
-## 实验与记录规范
+## Logging conventions
 
-> 本节是 Claude Code 在此仓库工作的固定约定,人工提交也请遵守。记录的目标:任何实验在一个月后仍能被完整理解与复现。
+> This section is the standing agreement for Claude Code in this repository; humans
+> should follow it too. The goal: any experiment should still be fully understandable
+> and reproducible a month later.
 
-1. **提交信息格式**:`<type>: <一句话说明>`,type 取值:
-   `exp`(启动/运行实验)· `result`(实验结论)· `data`(数据处理)· `analysis`(分析)· `fig`(图表)· `paper`(写作)· `feat`(功能)· `fix`(修复)· `docs`(文档)· `chore`(杂项)。
-   结论性提交(`result:`)在正文中写明:关键数字、与预期的差异、下一步。
-2. **实验开始前**:在 `research/plan.json` 的 `experiments` 中登记(id、假设 hypothesis、预期结果 expected、起止日期),状态设为 `planned`;开始运行时改为 `running`。
-3. **实验完成后**(同一次提交内完成):
-   - 更新 `research/plan.json`:状态改为 `done`(受阻则 `blocked` 并在 `next` 写明原因与恢复条件),`actual` 填实际结果,`next` 填下一步;
-   - 在 `research/results.json` 的 `results` 数组**头部**追加一条结果:`summary` 用一句话写清结论(含关键数字与相对变化),数据能用 `chart` 表达的(折线/柱状/散点)优先写入 chart,其余图存 `figures/` 并在 `images` 中引用;
-   - 提交信息用 `result: ...`。
-4. **图片文件**:保存到 `figures/`,命名 `<实验ID>_<描述>.png`(例 `E3_loss_curve.png`)。
-5. **日期**一律 `YYYY-MM-DD`;**结论**必须区分「符合预期 / 部分符合 / 推翻假设」,推翻假设也是结果,照常记录。
-6. **修改本文件**:方法或规划发生实质变化时同步更新对应小节(含「时间规划」表),提交信息用 `docs: ...`。
+1. **Commit format**: `<type>: <one-line summary>`, where type is one of
+   `exp` (start/run an experiment) · `result` (a conclusion) · `data` · `analysis` ·
+   `fig` · `paper` · `feat` · `fix` · `docs` · `chore`.
+   A `result:` commit states the key numbers, how they compare to expectation, and the next step.
+   *(A project with its own established prefixes should keep them — the dashboard
+   renders any `type:` or `type(scope):` prefix and lets you filter on it.)*
+2. **Before an experiment**: register it in `research/plan.json` (id, hypothesis,
+   expected result, dates) with `status: "planned"`, flipping to `"running"` at launch.
+3. **When an experiment finishes** — in the same commit:
+   - update `research/plan.json`: set `status` to `done` (or `blocked`, with the reason
+     and the recovery condition in `next`), fill `actual` with the real numbers, fill `next`;
+   - prepend an entry to the `results` array in `research/results.json`: `summary` states the
+     conclusion in one sentence including the numbers; anything that plots goes in `chart`,
+     other images go to `figures/` and are referenced from `images`;
+   - commit as `result: ...`.
+4. **Figures**: saved under `figures/`, named `<experiment-id>_<description>.png`.
+5. **Dates** are always `YYYY-MM-DD`. **Conclusions** must distinguish "as expected /
+   partly as expected / hypothesis refuted" — a refuted hypothesis is a result and is
+   recorded like any other.
+6. **Provenance belongs in the record.** Every number in `results.json` should say in
+   `notes` where it came from (a metrics CSV, a log file, or this document's prose).
+   Numbers that exist only in prose — because a cluster mirror lags, say — are marked so
+   they are never mistaken for a reproducible artifact.
+7. **When the method or plan changes materially**, update the matching section here in
+   the same commit (`docs: ...`).
 
-## research 数据文件说明
+## research/ data files
 
-平台读取仓库中两个 JSON 文件(位于 `research/`),字段规范如下。
+The dashboard reads three files from `research/`. They are the structured view of this
+document — when the two disagree, this file wins and the JSON is corrected.
 
-**plan.json** — 实验安排与时间线:
+**`plan.json`** — experiments and timeline:
 
 ```json
 {
   "experiments": [
     {
       "id": "E1",
-      "name": "实验名称",
+      "name": "Experiment name",
       "status": "planned | running | done | blocked",
       "start": "2026-08-05",
       "end": "2026-08-12",
-      "hypothesis": "要检验的假设",
-      "expected": "预期结果(可量化)",
-      "actual": "实际结果(完成后填)",
-      "next": "下一步 / 受阻原因",
-      "priority": "high(可选)"
+      "hypothesis": "What is being tested",
+      "expected": "Quantified expectation",
+      "actual": "Real outcome (filled in on completion)",
+      "next": "Next step, or why it is blocked",
+      "priority": "high (optional)"
     }
   ],
-  "milestones": [
-    { "date": "2026-09-15", "label": "论文初稿", "done": false }
-  ],
-  "notes": "资源、约束等备注(可选)"
+  "milestones": [{ "date": "2026-09-15", "label": "Paper draft", "done": false }],
+  "notes": "Resources, constraints, risks (optional)"
 }
 ```
 
-**results.json** — 结果记录(新结果放数组头部):
+**`results.json`** — results, newest first:
 
 ```json
 {
@@ -123,35 +141,56 @@ figures/    结果图片(平台展示)
     {
       "id": "R1",
       "experiment": "E1",
-      "title": "结果标题",
+      "title": "Result title",
       "date": "2026-08-10",
-      "summary": "一句话结论,含关键数字与相对变化",
-      "metrics": [
-        { "name": "测试 MAE", "value": "0.296", "delta": "-12%", "good": "down" }
-      ],
+      "summary": "One-sentence conclusion with the key numbers",
+      "metrics": [{ "name": "Test MAE", "value": "0.296", "delta": "-12%", "good": "down" }],
       "chart": {
         "type": "line | bar | scatter",
-        "xLabel": "X 轴", "yLabel": "Y 轴",
-        "series": [ { "name": "系列名", "data": [[1, 0.52], [2, 0.44]] } ]
+        "xLabel": "X", "yLabel": "Y",
+        "series": [{ "name": "Series", "data": [[1, 0.52], [2, 0.44]] }]
       },
       "images": ["figures/E1_curve.png"],
-      "notes": "补充说明(可选)",
+      "notes": "Provenance and caveats",
       "tags": ["E1"]
     }
   ]
 }
 ```
 
-说明:`chart` 与 `images` 至少提供其一;`data` 为 `[x, y]` 数组,x 可为数字或类目字符串;`good` 表示指标向哪个方向为好(`down`/`up`),用于 delta 着色;散点图最多 3 个系列,`"diag": true` 可加 y=x 参考线。
+`chart` and `images` — provide at least one. `data` holds `[x, y]` pairs where x may be a
+number or a category label. `good` (`down`/`up`) says which direction is an improvement and
+colours the delta. Scatter plots show at most 3 series; `"diag": true` adds a y=x reference line.
 
-## 时间规划
+**`manuscript.json`** — the paper in progress:
 
-| 阶段 | 时间 | 目标 | 状态 |
-|------|------|------|------|
-| {{阶段 1}} | {{MM-DD ~ MM-DD}} | {{目标}} | ⏳ 未开始 |
-| {{阶段 2}} | {{MM-DD ~ MM-DD}} | {{目标}} | ⏳ 未开始 |
+```json
+{
+  "venue": "Pattern Recognition (Elsevier)",
+  "status": "planned | drafting | internal-review | submitted | under-review | revision | accepted | rejected",
+  "target": "2026-08-31",
+  "source": "paper/main.tex",
+  "pdf": "paper/main.pdf",
+  "notes": "Framing decisions, known gaps, fallback plan"
+}
+```
 
-## 参考文献 / 相关工作
+The dashboard fetches `source` and reads it live — no compilation required. It extracts the
+title, authors, abstract, section outline with per-section word counts, figures, unique
+references and **every unresolved `\todo{}`** (an empty marker still shows the sentence it
+interrupts). `.md` sources work too, with `TODO:`/`FIXME:` markers. One level of
+`\input{}`/`\include{}` is inlined. Omit `source` before drafting starts and the entry still
+tracks venue, status and the countdown to `target`. For several papers, use
+`{"manuscripts": [ … ]}`.
 
-- {{关键论文与链接}}
-- {{相关代码库}}
+## Schedule
+
+| Stage | Window | Goal | Status |
+|-------|--------|------|--------|
+| {{stage 1}} | {{MM-DD ~ MM-DD}} | {{goal}} | ⏳ not started |
+| {{stage 2}} | {{MM-DD ~ MM-DD}} | {{goal}} | ⏳ not started |
+
+## References and related work
+
+- {{key papers and links}}
+- {{related codebases}}
