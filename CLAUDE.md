@@ -7,6 +7,7 @@
 - **单文件、零依赖**:全部功能在 `index.html` 内(内联 CSS/JS),不引入任何构建步骤、npm 包或 CDN 资源。必须保证 `file://` 双击打开可用(因此数据一律走 GitHub API/contents 接口,不做相对路径 fetch)。
 - **兼容性**:面向现代浏览器(Chrome/Edge/Firefox/Safari 最近版本),允许使用 `??`、`color-mix()`、`<dialog>`。
 - **安全**:所有动态文本经 `textContent` 或 `esc()` 插入;Markdown 渲染不放行原始 HTML;URL 经 `safeUrl()` 协议白名单过滤。修改渲染逻辑时保持这三条不变。
+- **语言:一律英文**。界面文案、按钮/空状态/错误提示、README、`templates/` 下的模板与示例数据,新增内容默认用英文写;科研项目仓库里被平台渲染的内容(`CLAUDE.md`、`research/*.json` 的文字字段、图表轴标签、提交信息)同样默认英文。本文件与聊天可用中文。
 
 ## 目录结构
 

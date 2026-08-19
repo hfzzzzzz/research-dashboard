@@ -2,22 +2,22 @@
   "experiments": [
     {
       "id": "E1",
-      "name": "基线复现",
+      "name": "Baseline reproduction",
       "status": "done",
       "start": "2026-07-06",
       "end": "2026-07-20",
-      "hypothesis": "基线应达到文献报告的指标区间",
-      "expected": "复现误差与文献差距 < 5%",
-      "actual": "GIN 0.336,与文献一致",
-      "next": "以 GIN 为基础模型"
+      "hypothesis": "The baselines should land inside the metric range reported in the literature",
+      "expected": "Reproduction gap vs the published numbers < 5%",
+      "actual": "GIN 0.336, in line with the literature",
+      "next": "Use GIN as the base model"
     },
     {
       "id": "E2",
-      "name": "虚拟全局节点",
+      "name": "Virtual global node",
       "status": "running",
       "start": "2026-07-29",
       "end": "2026-08-08",
-      "hypothesis": "H1:全局节点弥补长程消息传递不足,MAE 降低 ≥ 8%",
+      "hypothesis": "H1: a global node compensates for weak long-range message passing and cuts MAE by at least 8%",
       "expected": "MAE ≤ 0.31",
       "actual": "",
       "next": "",
@@ -25,17 +25,17 @@
     },
     {
       "id": "E3",
-      "name": "注意力式读出层",
+      "name": "Attention readout layer",
       "status": "planned",
       "start": "2026-08-10",
       "end": "2026-08-18",
-      "hypothesis": "注意力读出优于 sum/mean 池化",
-      "expected": "在 E2 之上再降 3~5%"
+      "hypothesis": "Attention readout beats sum/mean pooling",
+      "expected": "A further 3-5% drop on top of E2"
     }
   ],
   "milestones": [
-    { "date": "2026-08-25", "label": "全部改进实验完成", "done": false },
-    { "date": "2026-09-15", "label": "论文初稿", "done": false }
+    { "date": "2026-08-25", "label": "All improvement experiments finished", "done": false },
+    { "date": "2026-09-15", "label": "Paper draft", "done": false }
   ],
-  "notes": "GPU 资源:实验室 2×3090 常驻;A100 需按周申请。"
+  "notes": "GPU resources: 2x3090 permanently available in the lab; A100 time has to be requested weekly."
 }

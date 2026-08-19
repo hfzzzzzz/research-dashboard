@@ -123,6 +123,8 @@ Full details are in the "research/ data files" section of
 - Scatter shows at most 3 series (a colour-vision-safety limit); `"diag": true` adds a y=x line
 - `metrics[].delta` plus `good` (`down`/`up`) drives the up/down colouring; new results go at the **front** of the array
 - Dates are always `YYYY-MM-DD`
+- Prose fields, chart labels and commit subjects are written in **English** — the UI and the
+  manuscript are English, so a mixed-language record reads badly across the tabs
 
 ## Troubleshooting
 

@@ -104,6 +104,12 @@ paper/      manuscript source
    they are never mistaken for a reproducible artifact.
 7. **When the method or plan changes materially**, update the matching section here in
    the same commit (`docs: ...`).
+8. **Everything the dashboard renders is written in English** — this document, the
+   `research/*.json` prose fields (`name`, `hypothesis`, `expected`, `actual`, `next`,
+   `title`, `summary`, `notes`, chart labels and axis titles), commit subjects and figure
+   captions. The dashboard UI and the manuscript are English, so a mixed-language record
+   reads badly on the Results, Plan and Methods tabs and cannot be pasted into the paper.
+   Conversation in another language is fine; what lands in the repository is English.
 
 ## research/ data files
 
